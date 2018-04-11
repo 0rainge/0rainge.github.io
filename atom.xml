@@ -46,6 +46,40 @@
   </entry>
   
   <entry>
+    <title>FaaS踩坑之openwhisk文档阅读笔记</title>
+    <link href="https://0rainge.github.io/2018/04/11/FaaS%E8%B8%A9%E5%9D%91%E4%B9%8Bopenwhisk%E6%96%87%E6%A1%A3%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
+    <id>https://0rainge.github.io/2018/04/11/FaaS踩坑之openwhisk文档阅读笔记/</id>
+    <published>2018-04-10T16:00:00.000Z</published>
+    <updated>2018-04-11T14:30:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>FaaS，serverless分布式事件驱动型计算服务，也称为无服务器计算或功能即服务 Function-as-a-Service</li><li>计算单元：不是虚拟机，而是一个封装了待执行代码（事件触发）的函数</li></ul><ul><li>yaml：”Yet Another Markup Language”（仍是一种置标语言）</li></ul><ul><li><p>post与get <a href="http://www.w3school.com.cn/tags/html_ref_httpmethods.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/tags/html_ref_httpmethods.asp</a></p></li><li><p>微服务：一种架构风格，一个大型复杂软件应用由一个或多个微服务组成。系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅关注于完成一件任务。在所有情况下，每个任务代表着一个小的业务能力。</p></li><li>反向代理，用于外部网络访问内部网络时使用，正向代理或包过滤方式用于拒绝其他外部访问方式并提供内部网络对外部网络的访问能力。因此可以结合这些方式提供最佳的安全访问方式。</li><li>nginx：web服务器</li><li><p>Spray：spray is an open-source toolkit for building REST/HTTP-based integration layers on top of Scala and Akka.</p></li><li><p>Akka：Akka是JAVA虚拟机JVM平台上构建高并发、分布式和容错应用的工具包和运行时。Akka用Scala语言写成，同时提供了Scala和JAVA的开发接口</p></li><li><p>rest api ：<a href="http://blog.csdn.net/px01ih8/article/details/78674685" target="_blank" rel="noopener">http://blog.csdn.net/px01ih8/article/details/78674685</a></p></li><li><p>openwhisk：从CouchDB 中的 whisks 数据库装入操作</p></li><li><p>Scala：一门多范式的编程语言，一种类似java的编程语言，设计初衷是实现可伸缩的语言、并集成面向对象编程和函数式编程的各种特性，Scala 运行在Java虚拟机上，并兼容现有的Java程序。</p></li></ul><ul><li><p>Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据</p></li><li><p>ActivationId：激活利用特定的标识符来表示远程对象，对象能随着时间被激活。一个激活标识符（类 ActivationID的一个实例）包含了激活一个对象所需的几部分信息：<a href="http://www.oschina.net/uploads/doc/javase-6-doc-api-zh_CN/java/rmi/activation/ActivationID.html" target="_blank" rel="noopener">http://www.oschina.net/uploads/doc/javase-6-doc-api-zh_CN/java/rmi/activation/ActivationID.html</a></p></li></ul><ul><li><p>异步调用模型，其中一旦系统接受调用操作的 HTTP 请求后，该请求即会终止</p></li><li><p>Docker 用于以快速、隔离且受控的方式为我们调用的每个操作设置新的自封装环境（称为容器）。对于每个操作调用，都会衍生一个 Docker 容器，将操作码注入其中</p></li><li><p>Restful：网络上的所有事物都被抽象为资源，每个资源都有一个唯一的资源标识符，同一个资源具有多种表现形式(xml,json等)，对资源的各种操作不会改变资源标识符，所有的操作都是无状态的</p></li><li><p>ssl终止：在处理SSL加密/解密的负载均衡器上发生的进程，以便负载均衡器和后端服务器之间的流量处于HTTP中。 后端必须通过限制对负载均衡器的IP的访问来加以保护</p></li><li><p>Ansible是一个简单的自动化运维管理工具</p></li><li><p>Cloud Functions 处理流入系统的事件。</p></li><li><p>触发器在技术上是指某类事件的名称。每个事件属于恰好一个触发器；若用类比说明，触发器类似于基于主题的发布/预订系统中的主题。规则 T -&gt; A 表示“每当来自触发器 T 的事件到达时，通过触发器有效内容调用操作 A。”</p></li><li><p>订阅源是全部属于某个触发器 T 的事件的流。订阅源通过订阅源操作进行控制，订阅源操作用于处理组成订阅源的事件流的创建、删除、暂停和恢复。通常，订阅源操作通过使用管理通知的 REST API 来与生成事件的外部服务进行交互。</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;FaaS，serverless分布式事件驱动型计算服务，也称为无服务器计算或功能即服务 Function-as-a-Service&lt;/li&gt;
+&lt;li&gt;计算单元：不是虚拟机，而是一个封装了待执行代码（事件触发）的函数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;yam
+      
+    
+    </summary>
+    
+      <category term="FaaS踩坑系列" scheme="https://0rainge.github.io/categories/FaaS%E8%B8%A9%E5%9D%91%E7%B3%BB%E5%88%97/"/>
+    
+    
+      <category term="微服务" scheme="https://0rainge.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+    
+      <category term="openwhisk" scheme="https://0rainge.github.io/tags/openwhisk/"/>
+    
+      <category term="分布式" scheme="https://0rainge.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>FaaS踩坑之openwhisk与fission对比</title>
     <link href="https://0rainge.github.io/2018/04/11/FaaS%E8%B8%A9%E5%9D%91%E4%B9%8Bopenwhisk%E4%B8%8Efission%E5%AF%B9%E6%AF%94/"/>
     <id>https://0rainge.github.io/2018/04/11/FaaS踩坑之openwhisk与fission对比/</id>
@@ -68,9 +102,9 @@
     
       <category term="fission" scheme="https://0rainge.github.io/tags/fission/"/>
     
-      <category term="FaaS" scheme="https://0rainge.github.io/tags/FaaS/"/>
-    
       <category term="openwhisk" scheme="https://0rainge.github.io/tags/openwhisk/"/>
+    
+      <category term="FaaS" scheme="https://0rainge.github.io/tags/FaaS/"/>
     
   </entry>
   

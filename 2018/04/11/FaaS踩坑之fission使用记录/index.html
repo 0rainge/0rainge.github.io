@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>FaaS踩坑之fission使用记录 | Hello 橙子</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="我就是故意拼错的">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="FaaS踩坑之fission使用记录"/>
+  <meta property="og:site_name" content="Hello 橙子"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Hello 橙子</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> FaaS踩坑之fission使用记录</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h4 id="1-fission命令"><a href="#1-fission命令" class="headerlink" title="1. fission命令"></a>1. fission命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function, fn                  Create, update and manage functions</span><br><span class="line"></span><br><span class="line">httptrigger, ht, route        Manage HTTP triggers (routes) for functions</span><br><span class="line"></span><br><span class="line">timetrigger, tt, timer        Manage Time triggers (timers) for functions</span><br><span class="line"></span><br><span class="line">mqtrigger, mqt, messagequeue  Manage message queue triggers for functions</span><br><span class="line"></span><br><span class="line">environment, env              Manage environments</span><br><span class="line"></span><br><span class="line">watch, w                      Manage watches</span><br><span class="line"></span><br><span class="line">package, pkg                  Manage packages</span><br><span class="line"></span><br><span class="line">spec, specs                   Manage a declarative app specification</span><br><span class="line"></span><br><span class="line">upgrade                       Upgrade tool from fission v0.1</span><br><span class="line"></span><br><span class="line">tpr2crd                       Migrate tool for TPR to CRD</span><br><span class="line"></span><br><span class="line">help, h                       Shows a list of commands or help for one command</span><br></pre></td></tr></table></figure>
+<h4 id="2-使用记录——function"><a href="#2-使用记录——function" class="headerlink" title="2. 使用记录——function"></a>2. 使用记录——function</h4><ol>
+<li>已有函数hello.js</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">module.exports = async function(context) &#123;</span><br><span class="line">return &#123;</span><br><span class="line">status: 200,</span><br><span class="line">body: &quot;Hello, world!\n&quot;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>为函数创建route(http请求时用到）：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fission route create --function hello --url /hello</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>创建基于pool executor 的函数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fission fn create --name hello --code hello.js --env node --executortype poolmgr</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><p>点击函数的url 获得结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl http://$FISSION_ROUTER/hello</span><br><span class="line">Hello, world!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定函数最大/最小规模</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fission fn create --name hello --code hello.js --env node --minscale 1 --maxscale 5  --executortype newdeploy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fission fn update --name hello --code ../hello.js</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fission fn test --name hello</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数运行出错，输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error calling function hello: 500 Internal server error (fission)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看函数运行日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fission fn logs --name hello</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>building function</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">sourcepkg/</span><br><span class="line">├── __init__.py</span><br><span class="line">├── build.sh</span><br><span class="line">├── requirements.txt</span><br><span class="line">└── user.py</span><br><span class="line"></span><br><span class="line">$ cat user.py</span><br><span class="line">import sys</span><br><span class="line">import yaml</span><br><span class="line"></span><br><span class="line">document = &quot;&quot;&quot;</span><br><span class="line">a: 1</span><br><span class="line">b:</span><br><span class="line">c: 3</span><br><span class="line">d: 4</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">return yaml.dump(yaml.load(document))</span><br><span class="line"></span><br><span class="line">$ cat requirements.txt</span><br><span class="line">pyyaml</span><br><span class="line"></span><br><span class="line">$ cat build.sh</span><br><span class="line">#!/bin/sh</span><br><span class="line">pip3 install -r $&#123;SRC_PKG&#125;/requirements.txt -t $&#123;SRC_PKG&#125; &amp;&amp; cp -r $&#123;SRC_PKG&#125; $&#123;DEPLOY_PKG&#125;</span><br><span class="line">$zip -jr demo-src-pkg.zip sourcepkg/</span><br><span class="line">adding: __init__.py (stored 0%)</span><br><span class="line">adding: build.sh (deflated 24%)</span><br><span class="line">adding: requirements.txt (stored 0%)</span><br><span class="line">adding: user.py (deflated 25%)</span><br><span class="line"></span><br><span class="line">fission fn create --name hellopy --env python --src demo-src-pkg.zip  --entrypoint &quot;user.main&quot; --buildcmd &quot;sh build.sh&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ fission route create --function hellopy --url /hellopy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fission fn update --name hellopy --env python --src demo-src-pkg.zip  --entrypoint &quot;user.main&quot; --buildcmd “sh build.sh”</span><br></pre></td></tr></table></figure>
+<p>11.compiled artifacts with Fission</p>
+<h4 id="3-使用记录————environment"><a href="#3-使用记录————environment" class="headerlink" title="3 使用记录————environment"></a>3 使用记录————environment</h4><ol>
+<li>准备环境<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fission env create --name node --image fission/node-env:0.4.0 --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 4</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>设置环境，语言镜像，环境中支持几个pre-warmed pod</p>
+<ol start="2">
+<li><p>在启动环境的时候设置builder</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fission env create --name python --image fission/python-env:latest --builder fission/python-builder:latest</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看env信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fission env list</span><br><span class="line">fission env get --name node</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>使用记录————Controlling Function Execution</p>
+<p>安装go<br>安装 hey</p>
+<ol>
+<li><p>用hey</p>
+</li>
+<li><p>HorizontalPodAutoscaler</p>
+</li>
+</ol>
+<h4 id="4-使用记录————trigger"><a href="#4-使用记录————trigger" class="headerlink" title="4.使用记录————trigger"></a>4.使用记录————trigger</h4><ol>
+<li><p>http trigger：通过http get到一个函数</p>
+</li>
+<li><p>time trigger：定时执行函数</p>
+</li>
+<li><p>message queue trigger：基于message queue来执行函数</p>
+</li>
+</ol>
+<p>（NATS and Azure Storage Queue are supported queues.）</p>
+<h4 id="5-使用记录————打包"><a href="#5-使用记录————打包" class="headerlink" title="5.使用记录————打包"></a>5.使用记录————打包</h4><ol>
+<li><p>打包源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fission package create --sourcearchive demo-src-pkg.zip --env pythonsrc --buildcmd &quot;./build.sh&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打包deployment</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fission env create --name pythondeploy --image fission/python-env:latest --builder fission/python-builder:latest --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 2</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="6-使用问题记录："><a href="#6-使用问题记录：" class="headerlink" title="6.使用问题记录："></a>6.使用问题记录：</h4><ol>
+<li><p>fission host路径问题，创建环境（go，python,js…），创建executors和函数（创建pod），创建trigger（调用函数）因为第二步和第三步存在依赖关系顺序不能反</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fission env create --name nodejs --image fission/node-env:0.6.0</span><br><span class="line">fission route create --function hello --url /hello</span><br><span class="line">fission fn create --name hello --code hello.js --env nodejs --executortype poolmgr，</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>fission创建package的时候有权限问题builder不起来，用sh 不用./ 或者用chmod给文件加权限777</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod –R 777 *</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试时 ,需要把$FISSION_ROUTER换了，用的minikube直接换成它的地址，用的k8s换成外部ip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl http://$FISSION_ROUTER/hello 换成</span><br><span class="line">curl http://35.194.204.59／hello</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按照fission命令删除函数以及删除trigger后，发现相关的pod没有被删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fission fn delete --name hellopy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>build的路径问题未解决：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error starting cmd: exec: &quot;sh build.sh&quot;: executable file not found in $PATH</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看builder日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">k -n fission-builder logs -f py3-4214348-59555d9bd8-ks7m4 builder 换成</span><br><span class="line">kubectl logs python-39799-58b5b4f844-np94r -n fission-builder --container=builder</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 fn,env,ht等时，一个属性赋值错误时：依然被创建会存在，但会使用失败</p>
+</li>
+<li>测试时的hey 和 k：需要安装go ，hey ，HorizontalPodAutoscaler</li>
+<li>创建env时，在这里找镜像:<a href="https://docs.fission.io/0.6.0/concepts/environments/" target="_blank" rel="noopener">https://docs.fission.io/0.6.0/concepts/environments/</a></li>
+<li>packge创建失败？感觉builder有问题<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Build timeout due to environment builder not ready</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2018/04/11/FaaS踩坑之openwhisk与fission对比/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-04-11 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/FaaS踩坑系列/">FaaS踩坑系列<span>4</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/fission/">fission<span>3</span></a></li> <li><a href="/tags/微服务/">微服务<span>2</span></a></li> <li><a href="/tags/docker/">docker<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 John Doe
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

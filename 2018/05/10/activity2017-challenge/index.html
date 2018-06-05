@@ -137,8 +137,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\frac&#123;\text&#123;total number of proposals in the submission file&#125;&#125;&#123;\text&#123;total number of videos in the testing subset&#125;&#125;</span><br></pre></td></tr></table></figure>
 <p>ANmax<br> 表示在评估方法允许每个视频平均proposals数量的最大值。这里，ANmax=100<br>。让 R=ANmaxANsubmission<br>，那么我们按照以下方式预处理提交文件：</p>
 <p>若 R&lt;1<br>，那么对于测试子集中的每个视频，我们会根据proposal得分对其proposal进行分类，并丢弃得分最低的 R%<br> 的proposal。<br>若 R≥1<br>，那么对于测试子集中的每个视频，我们会根据提案得分对提案进行排序，并复制每个视频中得分最低的 (R−1)%<br> 提案，并将结果数据点添加到 AR−AN<br> 曲线上。然后计算所得到的最终曲线下的面积并将其作为提交文件的度量分数。<br>过滤后的提交结果文件将有：AN=ANmax<br>。对于每一个 p<br> 值（从1到100，步长为1），仅仅使用得分前 p%<br> 的proposal计算 AR<br>，并将结果数据点添加到 AR−AN<br> 曲线上。然后计算所得到的最终曲线下的面积并将其作为提交文件的度量分数。</p>
-<p>在验证子集上提供基线proposal方法（称为统一随机）的结果。统一随机（Uniform Random）：每个proposal的中心和长度是独立地从间隔内的均匀随机分布 [0,d]<br> 中抽取的，其中 d<br> 为视频长度。这个模型的得分：44.88%<br>。见下图：</p>
-<p><img src="https://https://img-blog.csdn.net/2018032716494568" alt="image"><br>虚线表示在平均超过一个 tIoU<br> 阈值时的召回性能，而实线表示跨所有 tIoU<br> 阈值的平均召回率。可以看出，在 tIoU<br> 比较小时召回性能较高，但在 tIoU<br> 较大时急速下降。因此，对于在评估指标上得分较高的proposal方法，需要重点关注对低和高 tIoU<br> 阈值下都得到相对较高的召回率。</p>
+<p>在验证子集上提供基线proposal方法（称为统一随机）的结果。统一随机（Uniform Random）：每个proposal的中心和长度是独立地从间隔内的均匀随机分布 [0,d]<br> 中抽取的，其中 d<br> 为视频长度。这个模型的得分：44.88%<br>。<br>虚线表示在平均超过一个 tIoU<br> 阈值时的召回性能，而实线表示跨所有 tIoU<br> 阈值的平均召回率。可以看出，在 tIoU<br> 比较小时召回性能较高，但在 tIoU<br> 较大时急速下降。因此，对于在评估指标上得分较高的proposal方法，需要重点关注对低和高 tIoU<br> 阈值下都得到相对较高的召回率。</p>
 <h2 id="4-Temporal-Action-Localization"><a href="#4-Temporal-Action-Localization" class="headerlink" title="4. Temporal Action Localization"></a>4. Temporal Action Localization</h2><h3 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h3><p>尽管最近在大规模视频分析方面取得了进展，但Temporal Action Localization仍然是计算机视觉中最具挑战性的未解决问题之一。这种搜索问题阻碍了从消费者视频摘要到监控，人群监控和老年护理等各种实际应用。因此，我们致力于推动开发高效，准确的自动化方法，以搜索和检索视频集合中的事件和活动。</p>
 <p>这项任务旨在鼓励计算机视觉研究人员设计高性能的行为定位系统。</p>
 <h3 id="数据集-3"><a href="#数据集-3" class="headerlink" title="数据集"></a>数据集</h3><p>此任务采用ActivityNet 1.3版本数据集。该数据集包含超过648个小时的未修剪视频，共约2万个视频。它包含200种不同的日常活动，例如：’walking the dog’, ‘long jump’, and ‘vacuuming floor’等。数据量分布：train（~50%）, validation（~25%）, test（~25%）。</p>
@@ -158,13 +157,13 @@
 
     
     
-    <a href="/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/" type="button" class="btn btn-default"><i
+    <a href="/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2018/04/25/CNN_MBH_StackedC3D_ovrSVM_Voting/" type="button" class="btn btn-default ">Next<i
+    <a href="/2018/05/01/git学习篇/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 

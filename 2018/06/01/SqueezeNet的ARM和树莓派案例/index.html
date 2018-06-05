@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>SqueezeNet的ARM和树莓派案例 | Hello 橙子</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="我就是故意拼错的">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="SqueezeNet的ARM和树莓派案例"/>
+  <meta property="og:site_name" content="Hello 橙子"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Hello 橙子</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> SqueezeNet的ARM和树莓派案例</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="ARM"><a href="#ARM" class="headerlink" title="ARM"></a>ARM</h2><ol>
+<li>ARM Compute Library案例：</li>
+</ol>
+<ul>
+<li>案例：<br>ARM 计算库（ACL）提供了CNN的基本构造块，比如激活、卷积、全连接和局部连接、规范化、池化和softmax功能. 文章通过这些组件构建SqueezeNet ，并与通过tensorflow构建的SqueezeNet进行比较，</li>
+<li>产品化程度：<br>理论性较强，产品化程度不高。重点介绍了如何通过ACL构建SqueezeNet架构的CNN推理机  ，并与通过Zuluko上tensorflow构建的SqueezeNet进行比较。<br>-SqueezeNet 起到的作用：<br>作为用于测试ACL性能的神经网络模型。</li>
+<li>链接：<br><a href="https://arxiv.org/pdf/1704.03751.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1704.03751.pdf</a> 和<br><a href="https://community.arm.com/iot/embedded/b/embedded-blog/posts/perceptin-enabled-embedded-deep-learning-inference-engine-with-the-arm-compute-library" target="_blank" rel="noopener">https://community.arm.com/iot/embedded/b/embedded-blog/posts/perceptin-enabled-embedded-deep-learning-inference-engine-with-the-arm-compute-library</a></li>
+<li>代码：<br>ACL中样例SqueezeNet的C++代码 <a href="https://github.com/ARM-software/ComputeLibrary/blob/master/examples/graph_squeezenet_v1_1.cpp" target="_blank" rel="noopener">https://github.com/ARM-software/ComputeLibrary/blob/master/examples/graph_squeezenet_v1_1.cpp</a></li>
+</ul>
+<h2 id="Raspberry-Pi-3"><a href="#Raspberry-Pi-3" class="headerlink" title="Raspberry Pi 3"></a>Raspberry Pi 3</h2><ol>
+<li>用opencv在树莓派上部署SqueezeNet</li>
+</ol>
+<ul>
+<li>案例：用OpenCV3.3.0在Raspberry Pi 3上部署 pre-trained SqueezeNet Neural Network</li>
+<li>产品化程度：<br>比较高，可以输出结果。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">（1）在图像上绘出最高的预测分类标签和相应的概率</span><br><span class="line">（2）将前五个结果和概率打印到终端</span><br><span class="line">（3）将图像显示在屏幕上</span><br><span class="line"></span><br><span class="line">[INFO] loading model...</span><br><span class="line">[INFO] classification took 0.4432 seconds</span><br><span class="line">[INFO] 1. label: drake, probability: 0.25705</span><br><span class="line">[INFO] 2. label: goose, probability: 0.18581</span><br><span class="line">[INFO] 3. label: black stork, probability: 0.10414</span><br><span class="line">[INFO] 4. label: hornbill, probability: 0.074497</span><br><span class="line">[INFO] 5. label: quail, probability: 0.051127</span><br></pre></td></tr></table></figure>
+<ul>
+<li>SqueezeNet 起到的作用：<br>用于图像识别，在案例中起主要作用。</li>
+<li>代码：<a href="https://github.com/appinho/Raspberry_Pi_3_Image_Classification/tree/master/SqueezeNet" target="_blank" rel="noopener">https://github.com/appinho/Raspberry_Pi_3_Image_Classification/tree/master/SqueezeNet</a></li>
+</ul>
+<ol start="2">
+<li>使用Raspberry Pi和预先训练的深度学习神经网络对输入图像进行分类</li>
+</ol>
+<ul>
+<li>案例：使用Raspberry Pi 部署预先训练的深度学习网络.不通过树莓派训练模型，只做用来部署预先训练好的模型</li>
+<li>产品化程度：<br>比较高，可以输出具体结果，SqueezeNet比GoogLeNet速度更快，但准确率没它高</li>
+<li>SqueezeNet 起到的作用：进行图片分类</li>
+<li>链接：<a href="https://www.pyimagesearch.com/2017/10/02/deep-learning-on-the-raspberry-pi-with-opencv/" target="_blank" rel="noopener">https://www.pyimagesearch.com/2017/10/02/deep-learning-on-the-raspberry-pi-with-opencv/</a></li>
+<li>代码：<a href="https://www.getdrip.com/forms/353154548/submissions" target="_blank" rel="noopener">https://www.getdrip.com/forms/353154548/submissions</a></li>
+</ul>
+<ol start="3">
+<li>在Raspberry Pi 中运行Movidius Neural Compute Stick</li>
+</ol>
+<ul>
+<li>案例： 通过Raspberry Pi 、Raspbian jessie（2017-07-05）、cheep USB camera和SqueezeNet实现。</li>
+<li>产品化程度：高，已实现，有demo视频可以进行实时识别。</li>
+<li>SqueezeNet 起到的作用：用于图像分类</li>
+<li>链接：<a href="https://www.youtube.com/watch?v=41E5hni786Y" target="_blank" rel="noopener">https://www.youtube.com/watch?v=41E5hni786Y</a> 和 <a href="https://www.youtube.com/watch?v=f39NFuZAj6s" target="_blank" rel="noopener">https://www.youtube.com/watch?v=f39NFuZAj6s</a></li>
+</ul>
+<ol start="4">
+<li>使用Raspberry Pi 3进行目标检测</li>
+</ol>
+<ul>
+<li>案例：使用树莓进行对象检测</li>
+<li>产品化程度：不高，理论分析</li>
+<li>SqueezeNet 起到的作用：建议使用的神经网络之一</li>
+<li>链接：<a href="https://medium.com/dt42/run-object-detection-using-deep-learning-on-raspberry-pi-3-1-55027eac26c3" target="_blank" rel="noopener">https://medium.com/dt42/run-object-detection-using-deep-learning-on-raspberry-pi-3-1-55027eac26c3</a></li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
+<li>通过SqueezeNet进行猫狗识别</li>
+</ol>
+<ul>
+<li>案例：猫狗识别</li>
+<li>产品化程度：一般。</li>
+<li>SqueezeNet 起到的作用：图像识别</li>
+<li>代码：<a href="https://github.com/chasingbob/squeezenet-keras" target="_blank" rel="noopener">https://github.com/chasingbob/squeezenet-keras</a></li>
+</ul>
+<ol start="2">
+<li>MXNet在Raspberry Pi上的实时对象检测</li>
+</ol>
+<ul>
+<li>案例：AWS的loT，MXNet和Raspberry Pi</li>
+<li>产品化程度：比较高</li>
+<li>SqueezeNet 起到的作用：主要是MXNet</li>
+<li>链接：<br><a href="https://mxnet.incubator.apache.org/tutorials/embedded/wine_detector.html" target="_blank" rel="noopener">https://mxnet.incubator.apache.org/tutorials/embedded/wine_detector.html</a></li>
+</ul>
+<ol start="3">
+<li>手机上的Squeezing Deep Learning<br>链接：<a href="https://www.slideshare.net/anirudhkoul/squeezing-deep-learning-into-mobile-phones" target="_blank" rel="noopener">https://www.slideshare.net/anirudhkoul/squeezing-deep-learning-into-mobile-phones</a></li>
+</ol>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-06-01 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/SqueezeNet/">SqueezeNet<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/SqueezeNet/">SqueezeNet<span>1</span></a></li> <li><a href="/tags/ARM/">ARM<span>1</span></a></li> <li><a href="/tags/Raspberry-Pi/">Raspberry Pi<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 John Doe
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

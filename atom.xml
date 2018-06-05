@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://0rainge.github.io/"/>
-  <updated>2018-06-05T09:18:35.000Z</updated>
+  <updated>2018-06-05T09:07:21.000Z</updated>
   <id>https://0rainge.github.io/</id>
   
   <author>
@@ -15,34 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>SqueezeNet介绍</title>
-    <link href="https://0rainge.github.io/2018/06/01/SqueezeNet%E4%BB%8B%E7%BB%8D/"/>
-    <id>https://0rainge.github.io/2018/06/01/SqueezeNet介绍/</id>
-    <published>2018-05-31T16:00:00.000Z</published>
-    <updated>2018-06-05T09:18:35.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>###定义：<br>压缩神经网络参数——轻量化网络<br>SqueezeNet是一个小型化的网络模型结构，在保证不降低检测精度的同时，用了比AlexNet少50倍的参数。</p><p>同时采用了deep compression技术，对squeezenet进行了压缩，将原始AlexNet模型压缩至原来的1/500（模型文件&lt; 0.5MB,原始AlexNet模型约为200MB，同时增大了计算量。</p><p>###措施：</p><ol><li>将一部分3x3的filter（卷集核）替换成1x1的filter；<br>本文替换3x3的卷积kernel为1x1的卷积kernel可以让参数缩小9X。但是为了不影响识别精度，并不是全部替换，而是一部分用3x3，一部分用1x1。</li><li>减少输入的channels（3x3卷积核的input feature map数量，输入通道数）；<br>如果是conv1-conv2这样的直连，那么实际上是没有办法减少conv2的input feature map数量的。因此把一层conv分解为两层，封装为一个Fire Module。使用squeeze layers来实现。</li><li>在整个网络后期才进行下采样，使得卷积层有比较大的activation maps；<br>分辨率越大的特征图（延迟降采样）可以带来更高的分类精度，因为分辨率越大的输入能够提供的信息就越多。将欠采样操作延后，可以给卷积层提供更大的激活图：更大的激活图保留了更多的信息，可以提供更高的分类准确率。</li></ol><p>其中：措施1、2可降低参数数量。措施3用来大化网络精度。</p><p>###fire module：</p><p>一个类似inception的网络单元结构。SqueezeNet的网络结构由若干个 fire module 组成。<br>将原来一层conv层变成两层：squeeze卷集层（有1x1卷集核）+expand卷集层（1x1和3x3卷积核）。</p><ol><li>策略1：squeeze层用1x1的卷集filter。squeeze层借鉴了inception的思想，利用1x1卷积核来降低输入到expand层中3x3卷积核的输入通道数channels。</li><li>策略2:  定义squeeze层中1x1卷积核的数量是s1x1，expand层中1x1卷积核的数量是e1x1， 3x3卷积核的数量是e3x3。令s1x1 &lt; e1x1+ e3x3从而保证输入到3x3的输入通道数减小，这样squeeze layer可以限制输入通道数量。<br>激活函数：为了保证1x1卷积核和3x3卷积核具有相同大小的输出，3x3卷积核采用1像素的zero-padding和步长 squeeze层和expand层均采用RELU作为激活函数 。</li></ol><p>Fire module输入的feature map为H<em>W</em>M的，输出的feature map为H<em>M</em>(e1+e3)，可以看到feature map的分辨率是不变的，变的仅是维数，也就是通道数，这一点和VGG的思想一致。<br>首先，H<em>W</em>M的feature map经过Squeeze层，得到S1个feature map，这里的S1均是小于M的，以达到“压缩”的目的。<br>其次，H<em>W</em>S1的特征图输入到Expand层，分别经过1<em>1卷积层和3</em>3卷积层进行卷积，再将结果进行concat，得到Fire module的输出，为 H<em>M</em>(e1+e3)的feature map。<br>fire模块有三个可调参数：S1，e1，e3，分别代表卷积核的个数，同时也表示对应输出feature map的维数，在本文提出的SqueezeNet结构中，e1=e3=4s1</p><p>###模型：</p><p>SqueezeNet以卷积层（conv1）开始，接着使用8个Fire modules (fire2-9)，最后以卷积层（conv10）结束。每个fire module中的filter数量逐渐增加，并且在conv1, fire4, fire8, 和 conv10这几层之后使用步长为2的max-pooling，即将池化层放在相对靠后的位置，这使用了以上的策略（3）。<br>最后是一个conv10，在fire9后采用50%的dropout 由于全连接层的参数数量巨大，因此借鉴NIN的思想，去除了全连接层FC而改用global average pooling。</p><p>###减少参数的优点：<br>1、实现更高效的分布式训练；<br>服务器间的通信是分布式CNN训练的重要限制因素。对于分布式 数据并行 训练方式，通信需求和模型参数数量正相关。小模型对通信需求更低。<br>2、训练出轻量级的模型，减小下载模型到客户端的额外开销 ；<br>比如在自动驾驶中，经常需要更新客户端模型。更小的模型可以减少通信的额外开销，使得更新更加容易。<br>3、在FPGA和嵌入式硬件上的部署实现；</p><p>###GitHub项目：<br>SqueezeNet <a href="https://github.com/DeepScale/SqueezeNet" target="_blank" rel="noopener">https://github.com/DeepScale/SqueezeNet</a>  1.4k star<br>SqueezeNet-Deep-Compression： <a href="https://github.com/songhan/SqueezeNet-Deep-Compression" target="_blank" rel="noopener">https://github.com/songhan/SqueezeNet-Deep-Compression</a> 314 star  <a href="https://arxiv.org/abs/1602.07360" target="_blank" rel="noopener">https://arxiv.org/abs/1602.07360</a><br>SqueezeNet-Generator： <a href="https://github.com/songhan/SqueezeNet-Generator" target="_blank" rel="noopener">https://github.com/songhan/SqueezeNet-Generator</a><br>SqueezeNet-DSD-Training： <a href="https://github.com/songhan/SqueezeNet-DSD-Training" target="_blank" rel="noopener">https://github.com/songhan/SqueezeNet-DSD-Training</a><br>SqueezeNet-Residual： <a href="https://github.com/songhan/SqueezeNet-Residual" target="_blank" rel="noopener">https://github.com/songhan/SqueezeNet-Residual</a><br><a href="https://github.com/vonclites/squeezenet" target="_blank" rel="noopener">https://github.com/vonclites/squeezenet</a> 52 star 有原论文 <a href="https://arxiv.org/abs/1602.07360" target="_blank" rel="noopener">https://arxiv.org/abs/1602.07360</a><br><a href="https://github.com/rcmalli/keras-squeezenet" target="_blank" rel="noopener">https://github.com/rcmalli/keras-squeezenet</a>  251 star Keras实现 squeezenet<br><a href="https://github.com/DT42/squeezenet_demo" target="_blank" rel="noopener">https://github.com/DT42/squeezenet_demo</a> 175 star  </p><p>###相关论文：<br><a href="https://arxiv.org/pdf/1602.07360v3.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1602.07360v3.pdf</a> squeezenet用了比AlexNet少50倍的参数，达到了AlexNet相同的精度<br><a href="https://arxiv.org/pdf/1506.02626v3.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1506.02626v3.pdf</a> Learning both Weights and Connections for Efficient Neural Network (NIPS’15)<br><a href="https://arxiv.org/pdf/1510.00149v5.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1510.00149v5.pdf</a> 深度压缩，用剪枝来压缩深度神经网络，训练量化和 Huffman 编码<br><a href="https://arxiv.org/pdf/1602.01528v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1602.01528v1.pdf</a> 压缩神经网络的Efficient Inference Engine</p><p>###总结：<br>squeezenet采用“多层小卷积核”策略，通过增加计算量换来更少的参数，把参数读取的代价转移到计算量上。计算耗时还是要远远小于数据存取耗时的，是“多层小卷积核”策略成功的根源。</p><p>###其他：<br>mobilenet和，squeezenet都是alexnet参数量1/50，mobilenet速度比alexnet快10倍，squeezenet提升3%</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;###定义：&lt;br&gt;压缩神经网络参数——轻量化网络&lt;br&gt;SqueezeNet是一个小型化的网络模型结构，在保证不降低检测精度的同时，用了比AlexNet少50倍的参数。&lt;/p&gt;
-&lt;p&gt;同时采用了deep compression技术，对squeezenet进行了压缩，将原始
-      
-    
-    </summary>
-    
-      <category term="SqueezeNet" scheme="https://0rainge.github.io/categories/SqueezeNet/"/>
-    
-    
-      <category term="SqueezeNet" scheme="https://0rainge.github.io/tags/SqueezeNet/"/>
-    
-      <category term="神经网络" scheme="https://0rainge.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
   
   <entry>
     <title>SqueezeNet的ARM和树莓派案例</title>
@@ -74,6 +46,33 @@
       <category term="ARM" scheme="https://0rainge.github.io/tags/ARM/"/>
     
       <category term="Raspberry Pi" scheme="https://0rainge.github.io/tags/Raspberry-Pi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SqueezeNet介绍</title>
+    <link href="https://0rainge.github.io/2018/06/01/SqueezeNet%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://0rainge.github.io/2018/06/01/SqueezeNet介绍/</id>
+    <published>2018-05-31T16:00:00.000Z</published>
+    <updated>2018-06-05T09:21:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h3><p>压缩神经网络参数——轻量化网络<br>SqueezeNet是一个小型化的网络模型结构，在保证不降低检测精度的同时，用了比AlexNet少50倍的参数。</p><p>同时采用了deep compression技术，对squeezenet进行了压缩，将原始AlexNet模型压缩至原来的1/500（模型文件&lt; 0.5MB,原始AlexNet模型约为200MB，同时增大了计算量。</p><h3 id="措施："><a href="#措施：" class="headerlink" title="措施："></a>措施：</h3><ol><li>将一部分3x3的filter（卷集核）替换成1x1的filter；<br>本文替换3x3的卷积kernel为1x1的卷积kernel可以让参数缩小9X。但是为了不影响识别精度，并不是全部替换，而是一部分用3x3，一部分用1x1。</li><li>减少输入的channels（3x3卷积核的input feature map数量，输入通道数）；<br>如果是conv1-conv2这样的直连，那么实际上是没有办法减少conv2的input feature map数量的。因此把一层conv分解为两层，封装为一个Fire Module。使用squeeze layers来实现。</li><li>在整个网络后期才进行下采样，使得卷积层有比较大的activation maps；<br>分辨率越大的特征图（延迟降采样）可以带来更高的分类精度，因为分辨率越大的输入能够提供的信息就越多。将欠采样操作延后，可以给卷积层提供更大的激活图：更大的激活图保留了更多的信息，可以提供更高的分类准确率。</li></ol><p>其中：措施1、2可降低参数数量。措施3用来大化网络精度。</p><h3 id="fire-module："><a href="#fire-module：" class="headerlink" title="fire module："></a>fire module：</h3><p>一个类似inception的网络单元结构。SqueezeNet的网络结构由若干个 fire module 组成。<br>将原来一层conv层变成两层：squeeze卷集层（有1x1卷集核）+expand卷集层（1x1和3x3卷积核）。</p><ol><li>策略1：squeeze层用1x1的卷集filter。squeeze层借鉴了inception的思想，利用1x1卷积核来降低输入到expand层中3x3卷积核的输入通道数channels。</li><li>策略2:  定义squeeze层中1x1卷积核的数量是s1x1，expand层中1x1卷积核的数量是e1x1， 3x3卷积核的数量是e3x3。令s1x1 &lt; e1x1+ e3x3从而保证输入到3x3的输入通道数减小，这样squeeze layer可以限制输入通道数量。<br>激活函数：为了保证1x1卷积核和3x3卷积核具有相同大小的输出，3x3卷积核采用1像素的zero-padding和步长 squeeze层和expand层均采用RELU作为激活函数 。</li></ol><p>Fire module输入的feature map为H<em>W</em>M的，输出的feature map为H<em>M</em>(e1+e3)，可以看到feature map的分辨率是不变的，变的仅是维数，也就是通道数，这一点和VGG的思想一致。<br>首先，H<em>W</em>M的feature map经过Squeeze层，得到S1个feature map，这里的S1均是小于M的，以达到“压缩”的目的。<br>其次，H<em>W</em>S1的特征图输入到Expand层，分别经过1<em>1卷积层和3</em>3卷积层进行卷积，再将结果进行concat，得到Fire module的输出，为 H<em>M</em>(e1+e3)的feature map。<br>fire模块有三个可调参数：S1，e1，e3，分别代表卷积核的个数，同时也表示对应输出feature map的维数，在本文提出的SqueezeNet结构中，e1=e3=4s1</p><h3 id="模型："><a href="#模型：" class="headerlink" title="模型："></a>模型：</h3><p>SqueezeNet以卷积层（conv1）开始，接着使用8个Fire modules (fire2-9)，最后以卷积层（conv10）结束。每个fire module中的filter数量逐渐增加，并且在conv1, fire4, fire8, 和 conv10这几层之后使用步长为2的max-pooling，即将池化层放在相对靠后的位置，这使用了以上的策略（3）。<br>最后是一个conv10，在fire9后采用50%的dropout 由于全连接层的参数数量巨大，因此借鉴NIN的思想，去除了全连接层FC而改用global average pooling。</p><h3 id="减少参数的优点："><a href="#减少参数的优点：" class="headerlink" title="减少参数的优点："></a>减少参数的优点：</h3><p>1、实现更高效的分布式训练；<br>服务器间的通信是分布式CNN训练的重要限制因素。对于分布式 数据并行 训练方式，通信需求和模型参数数量正相关。小模型对通信需求更低。<br>2、训练出轻量级的模型，减小下载模型到客户端的额外开销 ；<br>比如在自动驾驶中，经常需要更新客户端模型。更小的模型可以减少通信的额外开销，使得更新更加容易。<br>3、在FPGA和嵌入式硬件上的部署实现；</p><h3 id="GitHub项目："><a href="#GitHub项目：" class="headerlink" title="GitHub项目："></a>GitHub项目：</h3><p>SqueezeNet <a href="https://github.com/DeepScale/SqueezeNet" target="_blank" rel="noopener">https://github.com/DeepScale/SqueezeNet</a>  1.4k star<br>SqueezeNet-Deep-Compression： <a href="https://github.com/songhan/SqueezeNet-Deep-Compression" target="_blank" rel="noopener">https://github.com/songhan/SqueezeNet-Deep-Compression</a> 314 star  <a href="https://arxiv.org/abs/1602.07360" target="_blank" rel="noopener">https://arxiv.org/abs/1602.07360</a><br>SqueezeNet-Generator： <a href="https://github.com/songhan/SqueezeNet-Generator" target="_blank" rel="noopener">https://github.com/songhan/SqueezeNet-Generator</a><br>SqueezeNet-DSD-Training： <a href="https://github.com/songhan/SqueezeNet-DSD-Training" target="_blank" rel="noopener">https://github.com/songhan/SqueezeNet-DSD-Training</a><br>SqueezeNet-Residual： <a href="https://github.com/songhan/SqueezeNet-Residual" target="_blank" rel="noopener">https://github.com/songhan/SqueezeNet-Residual</a><br><a href="https://github.com/vonclites/squeezenet" target="_blank" rel="noopener">https://github.com/vonclites/squeezenet</a> 52 star 有原论文 <a href="https://arxiv.org/abs/1602.07360" target="_blank" rel="noopener">https://arxiv.org/abs/1602.07360</a><br><a href="https://github.com/rcmalli/keras-squeezenet" target="_blank" rel="noopener">https://github.com/rcmalli/keras-squeezenet</a>  251 star Keras实现 squeezenet<br><a href="https://github.com/DT42/squeezenet_demo" target="_blank" rel="noopener">https://github.com/DT42/squeezenet_demo</a> 175 star  </p><h3 id="相关论文："><a href="#相关论文：" class="headerlink" title="相关论文："></a>相关论文：</h3><p><a href="https://arxiv.org/pdf/1602.07360v3.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1602.07360v3.pdf</a> squeezenet用了比AlexNet少50倍的参数，达到了AlexNet相同的精度<br><a href="https://arxiv.org/pdf/1506.02626v3.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1506.02626v3.pdf</a> Learning both Weights and Connections for Efficient Neural Network (NIPS’15)<br><a href="https://arxiv.org/pdf/1510.00149v5.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1510.00149v5.pdf</a> 深度压缩，用剪枝来压缩深度神经网络，训练量化和 Huffman 编码<br><a href="https://arxiv.org/pdf/1602.01528v1.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1602.01528v1.pdf</a> 压缩神经网络的Efficient Inference Engine</p><h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>squeezenet采用“多层小卷积核”策略，通过增加计算量换来更少的参数，把参数读取的代价转移到计算量上。计算耗时还是要远远小于数据存取耗时的，是“多层小卷积核”策略成功的根源。</p><h3 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h3><p>mobilenet和，squeezenet都是alexnet参数量1/50，mobilenet速度比alexnet快10倍，squeezenet提升3%</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;定义：&quot;&gt;&lt;a href=&quot;#定义：&quot; class=&quot;headerlink&quot; title=&quot;定义：&quot;&gt;&lt;/a&gt;定义：&lt;/h3&gt;&lt;p&gt;压缩神经网络参数——轻量化网络&lt;br&gt;SqueezeNet是一个小型化的网络模型结构，在保证不降低检测精度的同时，用了比AlexNe
+      
+    
+    </summary>
+    
+      <category term="SqueezeNet" scheme="https://0rainge.github.io/categories/SqueezeNet/"/>
+    
+    
+      <category term="SqueezeNet" scheme="https://0rainge.github.io/tags/SqueezeNet/"/>
+    
+      <category term="神经网络" scheme="https://0rainge.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   

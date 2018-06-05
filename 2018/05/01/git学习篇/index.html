@@ -117,22 +117,16 @@
 	  		
 
 	  <p>git(改变指针来管理版本)</p>
-<p>###基本概念</p>
-<p>Working Tree 工作区：本地文件夹<br>Repository 版本库 ：工作区中的隐藏目录.git   .git中包含了暂存区（stage或index），分支（master），以及指针head<br>add 把文件添加进暂存区，commit把repo里的文件提交到当前分区</p>
-<p>###基本操作</p>
-<p>git init 新建本地版本库<br>git add <filename>把文件添加到repo<br>git commit -m “XXXXXXX说明”<br>git status 查看repo状态 （有3种状态）<br>git diff 查看修改<br>git diff HEAD —<filename>查看filename在工作区和repo的区别</filename></filename></p>
-<p>###撤销操作</p>
-<pre><code>0.    git checkout —&lt;filename&gt;丢弃工作区修改
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>Working Tree 工作区：本地文件夹<br>Repository 版本库 ：工作区中的隐藏目录.git   .git中包含了暂存区（stage或index），分支（master），以及指针head<br>add 把文件添加进暂存区，commit把repo里的文件提交到当前分区</p>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>git init 新建本地版本库<br>git add <filename>把文件添加到repo<br>git commit -m “XXXXXXX说明”<br>git status 查看repo状态 （有3种状态）<br>git diff 查看修改<br>git diff HEAD —<filename>查看filename在工作区和repo的区别</filename></filename></p>
+<h3 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h3><pre><code>0.    git checkout —&lt;filename&gt;丢弃工作区修改
 0.    git reset HEAD &lt;filename&gt; 丢弃暂存区修改
 0.    撤销本地提交：版本退回
 </code></pre><p>git log 查看历史提交版本<br>git reset —hard HEAD^ 退回上个版本<br>git reset —hard XXXXid 前进到新版本<br>git reflog 记录命令历史</p>
-<p>###删除操作</p>
-<p>工作区文件删除后删除版本库文件<br>git rm <filename><br>git commit -m “delete filename”</filename></p>
+<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><p>工作区文件删除后删除版本库文件<br>git rm <filename><br>git commit -m “delete filename”</filename></p>
 <p>工作区文件删除后通过版本库文件进行删除<br>git checkout — <filename></filename></p>
-<p>###远程仓库</p>
-<p>git remote  -v查看远程repo版本<br>git push -u origin master 把本地仓库push到远程仓库上<br>git clone <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:XXXXXXX/XXXXXXXXXX.git 从远程仓库克隆项目到本地仓库</p>
-<p>###分支</p>
-<p>git checkout -b dev 创建dev分支并切换过去<br>git branch dev  创建dev分支<br>git checkout dev    切换dev分支<br>git branch 查看当前分支<br>git merge dev 合并分支<br>git branch -d dev删除分支<br>git log –graph 查看分支合并图</p>
+<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><p>git remote  -v查看远程repo版本<br>git push -u origin master 把本地仓库push到远程仓库上<br>git clone <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:XXXXXXX/XXXXXXXXXX.git 从远程仓库克隆项目到本地仓库</p>
+<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><p>git checkout -b dev 创建dev分支并切换过去<br>git branch dev  创建dev分支<br>git checkout dev    切换dev分支<br>git branch 查看当前分支<br>git merge dev 合并分支<br>git branch -d dev删除分支<br>git log –graph 查看分支合并图</p>
 	  
 	</div>
 
@@ -148,7 +142,7 @@
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2018/04/11/FaaS踩坑之fission使用记录/" type="button" class="btn btn-default ">Next<i
+    <a href="/2018/04/11/FaaS踩坑之openwhisk与fission对比/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 

@@ -263,48 +263,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/" >论文阅读笔记之Untrimmed_Video_Classification1</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-05-15  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h4><p>Feng Mao </p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>提取CNN和C3D特征作为帧特征，使用average pooling 和 LSTM 将帧特征聚集为视频特征，使用MoE进行分类<br>CNN_C3D_averagePooling_LSTM_MoEcd ~/blog/blog/</p>
-<p>hexo clean<br>hexo  g<br>hexo s<br>hexo </p>
-<p>hexo d -g</p>
-<h4 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h4><p>CNN：使用数据集ImageNet 21k 训练模型inception-v1 。在分类层POOL5/7X7YS1，选择分类层之前的那一个hidden层作为帧级特征第一部分。<br>C3D：使用PCA降维</p>
-<h4 id="特征聚合"><a href="#特征聚合" class="headerlink" title="特征聚合"></a>特征聚合</h4><p>无监督 average pooling<br>有监督 aggregation LSTM</p>
-<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p> MoE(Mixture of experts) ，结合不同特征和不同聚合模型：</p>
-<ul>
-<li>CNN + average pooling </li>
-<li>CNN + LSTM </li>
-<li>C3D + average pooling</li>
-<li>C3D + LSTM </li>
-</ul>
-<p>需要训练的参数是CNN and C3D  的LSTM参数和 MoE parameters </p>
-
-	
-	</div>
-  <a type="button" href="/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/" >论文阅读笔记之Untrimmed_Video_Classification2</a>
+			<a href="/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/" >论文阅读笔记之CNN_MBH_StackedC3D_ovrSVM_Voting</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -334,6 +293,45 @@
 	
 	</div>
   <a type="button" href="/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/" >论文阅读笔记之CNN_C3D_averagePooling_LSTM_MoE</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-05-15  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h4 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h4><p>Feng Mao </p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>提取CNN和C3D特征作为帧特征，使用average pooling 和 LSTM 将帧特征聚集为视频特征，使用MoE进行分类<br>CNN_C3D_averagePooling_LSTM_MoEcd </p>
+<h4 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h4><p>CNN：使用数据集ImageNet 21k 训练模型inception-v1 。在分类层POOL5/7X7YS1，选择分类层之前的那一个hidden层作为帧级特征第一部分。<br>C3D：使用PCA降维</p>
+<h4 id="特征聚合"><a href="#特征聚合" class="headerlink" title="特征聚合"></a>特征聚合</h4><p>无监督 average pooling<br>有监督 aggregation LSTM</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p> MoE(Mixture of experts) ，结合不同特征和不同聚合模型：</p>
+<ul>
+<li>CNN + average pooling </li>
+<li>CNN + LSTM </li>
+<li>C3D + average pooling</li>
+<li>C3D + LSTM </li>
+</ul>
+<p>需要训练的参数是CNN and C3D  的LSTM参数和 MoE parameters </p>
+
+	
+	</div>
+  <a type="button" href="/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -418,15 +416,11 @@
 	
 		<p>git(改变指针来管理版本)</p>
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>Working Tree 工作区：本地文件夹<br>Repository 版本库 ：工作区中的隐藏目录.git   .git中包含了暂存区（stage或index），分支（master），以及指针head<br>add 把文件添加进暂存区，commit把repo里的文件提交到当前分区</p>
-<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>git init 新建本地版本库<br>git add <filename>把文件添加到repo<br>git commit -m “XXXXXXX说明”<br>git status 查看repo状态 （有3种状态）<br>git diff 查看修改<br>git diff HEAD —<filename>查看filename在工作区和repo的区别</filename></filename></p>
-<h3 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h3><pre><code>0.    git checkout —&lt;filename&gt;丢弃工作区修改
-0.    git reset HEAD &lt;filename&gt; 丢弃暂存区修改
-0.    撤销本地提交：版本退回
-</code></pre><p>git log 查看历史提交版本<br>git reset —hard HEAD^ 退回上个版本<br>git reset —hard XXXXid 前进到新版本<br>git reflog 记录命令历史</p>
-<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><p>工作区文件删除后删除版本库文件<br>git rm <filename><br>git commit -m “delete filename”</filename></p>
-<p>工作区文件删除后通过版本库文件进行删除<br>git checkout — <filename></filename></p>
-<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><p>git remote  -v查看远程repo版本<br>git push -u origin master 把本地仓库push到远程仓库上<br>git clone <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:XXXXXXX/XXXXXXXXXX.git 从远程仓库克隆项目到本地仓库</p>
-<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><p>git checkout -b dev 创建dev分支并切换过去<br>git branch dev  创建dev分支<br>git checkout dev    切换dev分支<br>git branch 查看当前分支<br>git merge dev 合并分支<br>git branch -d dev删除分支<br>git log –graph 查看分支合并图</p>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git init 新建本地版本库</span><br><span class="line">git add &lt;filename&gt;把文件添加到repo</span><br><span class="line">git commit -m “XXXXXXX说明”</span><br><span class="line">git status 查看repo状态 （有3种状态）</span><br><span class="line">git diff 查看修改</span><br><span class="line">git diff HEAD —&lt;filename&gt;查看filename在工作区和repo的区别</span><br></pre></td></tr></table></figure>
+<h3 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git checkout —&lt;filename&gt;丢弃工作区修改</span><br><span class="line">git reset HEAD &lt;filename&gt; 丢弃暂存区修改</span><br><span class="line">撤销本地提交：版本退回</span><br><span class="line"></span><br><span class="line">git log 查看历史提交版本</span><br><span class="line">git reset —hard HEAD^ 退回上个版本</span><br><span class="line">git reset —hard XXXXid 前进到新版本</span><br><span class="line">git reflog 记录命令历史</span><br></pre></td></tr></table></figure>
+<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">工作区文件删除后删除版本库文件</span><br><span class="line">git rm &lt;filename&gt;</span><br><span class="line">git commit -m “delete filename”</span><br><span class="line"></span><br><span class="line">工作区文件删除后通过版本库文件进行删除 </span><br><span class="line">git checkout — &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote  -v查看远程repo版本</span><br><span class="line">git push -u origin master 把本地仓库push到远程仓库上</span><br><span class="line">git clone git@github.com:XXXXXXX/XXXXXXXXXX.git 从远程仓库克隆项目到本地仓库</span><br></pre></td></tr></table></figure>
+<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev 创建dev分支并切换过去</span><br><span class="line">git branch dev  创建dev分支 </span><br><span class="line">git checkout dev    切换dev分支</span><br><span class="line">git branch 查看当前分支</span><br><span class="line">git merge dev 合并分支</span><br><span class="line">git branch -d dev删除分支</span><br><span class="line">git log --graph 查看分支合并图</span><br></pre></td></tr></table></figure>
 
 	
 	</div>
@@ -1050,45 +1044,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/openwhisk/">openwhisk<span>2</span></a></li>
-		
-			<li><a href="/tags/SVM/">SVM<span>1</span></a></li>
-		
-			<li><a href="/tags/MBH/">MBH<span>1</span></a></li>
-		
-			<li><a href="/tags/SqueezeNet/">SqueezeNet<span>2</span></a></li>
-		
 			<li><a href="/tags/fission/">fission<span>3</span></a></li>
-		
-			<li><a href="/tags/Kubernetes/">Kubernetes<span>1</span></a></li>
-		
-			<li><a href="/tags/Raspberry-Pi/">Raspberry Pi<span>1</span></a></li>
-		
-			<li><a href="/tags/helm/">helm<span>1</span></a></li>
-		
-			<li><a href="/tags/FaaS/">FaaS<span>2</span></a></li>
-		
-			<li><a href="/tags/docker/">docker<span>1</span></a></li>
-		
-			<li><a href="/tags/神经网络/">神经网络<span>1</span></a></li>
-		
-			<li><a href="/tags/C3D/">C3D<span>1</span></a></li>
-		
-			<li><a href="/tags/ARM/">ARM<span>1</span></a></li>
-		
-			<li><a href="/tags/微服务/">微服务<span>2</span></a></li>
-		
-			<li><a href="/tags/CNN/">CNN<span>2</span></a></li>
-		
-			<li><a href="/tags/StackedC3D/">StackedC3D<span>1</span></a></li>
 		
 			<li><a href="/tags/ActivityNet2017论文笔记/">ActivityNet2017论文笔记<span>1</span></a></li>
 		
-			<li><a href="/tags/视频处理/">视频处理<span>1</span></a></li>
+			<li><a href="/tags/CNN/">CNN<span>2</span></a></li>
+		
+			<li><a href="/tags/SqueezeNet/">SqueezeNet<span>2</span></a></li>
+		
+			<li><a href="/tags/MBH/">MBH<span>1</span></a></li>
+		
+			<li><a href="/tags/openwhisk/">openwhisk<span>2</span></a></li>
 		
 			<li><a href="/tags/averagePooling/">averagePooling<span>1</span></a></li>
 		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
+		
+			<li><a href="/tags/FaaS/">FaaS<span>2</span></a></li>
+		
+			<li><a href="/tags/分布式/">分布式<span>1</span></a></li>
+		
+			<li><a href="/tags/SVM/">SVM<span>1</span></a></li>
+		
+			<li><a href="/tags/docker/">docker<span>1</span></a></li>
+		
+			<li><a href="/tags/StackedC3D/">StackedC3D<span>1</span></a></li>
+		
+			<li><a href="/tags/minikube/">minikube<span>1</span></a></li>
+		
+			<li><a href="/tags/Kubernetes/">Kubernetes<span>1</span></a></li>
+		
+			<li><a href="/tags/C3D/">C3D<span>1</span></a></li>
+		
 			<li><a href="/tags/ActivityNet2017/">ActivityNet2017<span>1</span></a></li>
+		
+			<li><a href="/tags/helm/">helm<span>1</span></a></li>
+		
+			<li><a href="/tags/微服务/">微服务<span>2</span></a></li>
+		
+			<li><a href="/tags/视频处理/">视频处理<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>23</span></a></li>
@@ -1112,11 +1106,11 @@
       </li>
     
       <li>
-        <a href="/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/" ><i class="fa fa-file-o"></i>论文阅读笔记之Untrimmed_Video_Clas...</a>
+        <a href="/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/" ><i class="fa fa-file-o"></i>论文阅读笔记之CNN_MBH_StackedC3D_o...</a>
       </li>
     
       <li>
-        <a href="/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/" ><i class="fa fa-file-o"></i>论文阅读笔记之Untrimmed_Video_Clas...</a>
+        <a href="/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/" ><i class="fa fa-file-o"></i>论文阅读笔记之CNN_C3D_averagePooli...</a>
       </li>
     
       <li>

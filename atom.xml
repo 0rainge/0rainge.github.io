@@ -77,43 +77,11 @@
   </entry>
   
   <entry>
-    <title>论文阅读笔记之Untrimmed_Video_Classification1</title>
-    <link href="https://0rainge.github.io/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/"/>
-    <id>https://0rainge.github.io/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/</id>
-    <published>2018-05-14T16:00:00.000Z</published>
-    <updated>2018-06-05T08:55:51.000Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h4><p>Feng Mao </p><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>提取CNN和C3D特征作为帧特征，使用average pooling 和 LSTM 将帧特征聚集为视频特征，使用MoE进行分类<br>CNN_C3D_averagePooling_LSTM_MoEcd ~/blog/blog/</p><p>hexo clean<br>hexo  g<br>hexo s<br>hexo </p><p>hexo d -g</p><h4 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h4><p>CNN：使用数据集ImageNet 21k 训练模型inception-v1 。在分类层POOL5/7X7YS1，选择分类层之前的那一个hidden层作为帧级特征第一部分。<br>C3D：使用PCA降维</p><h4 id="特征聚合"><a href="#特征聚合" class="headerlink" title="特征聚合"></a>特征聚合</h4><p>无监督 average pooling<br>有监督 aggregation LSTM</p><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p> MoE(Mixture of experts) ，结合不同特征和不同聚合模型：</p><ul><li>CNN + average pooling </li><li>CNN + LSTM </li><li>C3D + average pooling</li><li>C3D + LSTM </li></ul><p>需要训练的参数是CNN and C3D  的LSTM参数和 MoE parameters </p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;作者&quot;&gt;&lt;a href=&quot;#作者&quot; class=&quot;headerlink&quot; title=&quot;作者&quot;&gt;&lt;/a&gt;作者&lt;/h4&gt;&lt;p&gt;Feng Mao &lt;/p&gt;
-&lt;h4 id=&quot;思路&quot;&gt;&lt;a href=&quot;#思路&quot; class=&quot;headerlink&quot; title=&quot;思路&quot;&gt;
-      
-    
-    </summary>
-    
-      <category term="Untrimmed_Video_Classification论文阅读笔记" scheme="https://0rainge.github.io/categories/Untrimmed-Video-Classification%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="ActivityNet2017论文笔记" scheme="https://0rainge.github.io/tags/ActivityNet2017%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="CNN" scheme="https://0rainge.github.io/tags/CNN/"/>
-    
-      <category term="C3D" scheme="https://0rainge.github.io/tags/C3D/"/>
-    
-      <category term="averagePooling" scheme="https://0rainge.github.io/tags/averagePooling/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文阅读笔记之Untrimmed_Video_Classification2</title>
+    <title>论文阅读笔记之CNN_MBH_StackedC3D_ovrSVM_Voting</title>
     <link href="https://0rainge.github.io/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/"/>
     <id>https://0rainge.github.io/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/</id>
     <published>2018-05-14T16:00:00.000Z</published>
-    <updated>2018-06-05T08:56:50.000Z</updated>
+    <updated>2018-06-05T09:37:40.000Z</updated>
     
     <content type="html"><![CDATA[<h4 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h4><p>Jianqin Yin1, Bin Wang2, Xiaoli Liu1, Bin Fang2, Yanchun Wu1, Yanyan Bao2 </p><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>提取CNN（主要捕获外观特征） , MBH 和 stacked C3D 特征（主要捕获动态特征） ，构造one-vs-rest 线性 SVM ，对结果进行投票</p><h4 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h4><ul><li>MBH：运动边界直方图，通过GMM和Fisher Vector 进行编码</li><li>Stacked C3D：提取时间和空间信息。由数据集Sport-1M 进行训练，通过PCA降维。通过把序列分为3部分mean-pool 获取时间信息。最后对特征堆叠获得stacked 3D</li><li>CNN（ImageNetShuffle） ：从Google inception net提取，在每秒2帧的pool5层提取CNN特征，对帧进行mean-pool，然后使用L1-normalization.</li></ul><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>通过one-vs-rest linear SVM分类，weight voting 和 hard voting 做决策<br>如果3个结果都不同，使用weight voting：通过one-vs-rest linear SVM 学习每个动作的权重，归一所有动作得到每个动作的置信度，最高票动作是最终结果<br>如果至少2个结果相同，使用one-vs-rest linear SVM 对每类特征学习其置信度</p><h5 id="置信度计算公式："><a href="#置信度计算公式：" class="headerlink" title="置信度计算公式："></a>置信度计算公式：</h5><ul><li>cof =1- (1- c1) (1- c2) </li><li>cof =1- (1- c1) (1- c2) (1- c3) </li></ul>]]></content>
     
@@ -136,6 +104,38 @@
       <category term="StackedC3D" scheme="https://0rainge.github.io/tags/StackedC3D/"/>
     
       <category term="SVM" scheme="https://0rainge.github.io/tags/SVM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>论文阅读笔记之CNN_C3D_averagePooling_LSTM_MoE</title>
+    <link href="https://0rainge.github.io/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/"/>
+    <id>https://0rainge.github.io/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/</id>
+    <published>2018-05-14T16:00:00.000Z</published>
+    <updated>2018-06-05T09:39:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h4><p>Feng Mao </p><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>提取CNN和C3D特征作为帧特征，使用average pooling 和 LSTM 将帧特征聚集为视频特征，使用MoE进行分类<br>CNN_C3D_averagePooling_LSTM_MoEcd </p><h4 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h4><p>CNN：使用数据集ImageNet 21k 训练模型inception-v1 。在分类层POOL5/7X7YS1，选择分类层之前的那一个hidden层作为帧级特征第一部分。<br>C3D：使用PCA降维</p><h4 id="特征聚合"><a href="#特征聚合" class="headerlink" title="特征聚合"></a>特征聚合</h4><p>无监督 average pooling<br>有监督 aggregation LSTM</p><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p> MoE(Mixture of experts) ，结合不同特征和不同聚合模型：</p><ul><li>CNN + average pooling </li><li>CNN + LSTM </li><li>C3D + average pooling</li><li>C3D + LSTM </li></ul><p>需要训练的参数是CNN and C3D  的LSTM参数和 MoE parameters </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;作者&quot;&gt;&lt;a href=&quot;#作者&quot; class=&quot;headerlink&quot; title=&quot;作者&quot;&gt;&lt;/a&gt;作者&lt;/h4&gt;&lt;p&gt;Feng Mao &lt;/p&gt;
+&lt;h4 id=&quot;思路&quot;&gt;&lt;a href=&quot;#思路&quot; class=&quot;headerlink&quot; title=&quot;思路&quot;&gt;
+      
+    
+    </summary>
+    
+      <category term="Untrimmed_Video_Classification论文阅读笔记" scheme="https://0rainge.github.io/categories/Untrimmed-Video-Classification%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="CNN" scheme="https://0rainge.github.io/tags/CNN/"/>
+    
+      <category term="ActivityNet2017论文笔记" scheme="https://0rainge.github.io/tags/ActivityNet2017%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="C3D" scheme="https://0rainge.github.io/tags/C3D/"/>
+    
+      <category term="averagePooling" scheme="https://0rainge.github.io/tags/averagePooling/"/>
     
   </entry>
   
@@ -171,9 +171,9 @@
     <link href="https://0rainge.github.io/2018/05/01/git%E5%AD%A6%E4%B9%A0%E7%AF%87/"/>
     <id>https://0rainge.github.io/2018/05/01/git学习篇/</id>
     <published>2018-04-30T16:00:00.000Z</published>
-    <updated>2018-06-05T09:31:28.000Z</updated>
+    <updated>2018-06-05T09:35:40.000Z</updated>
     
-    <content type="html"><![CDATA[<p>git(改变指针来管理版本)</p><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>Working Tree 工作区：本地文件夹<br>Repository 版本库 ：工作区中的隐藏目录.git   .git中包含了暂存区（stage或index），分支（master），以及指针head<br>add 把文件添加进暂存区，commit把repo里的文件提交到当前分区</p><h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>git init 新建本地版本库<br>git add <filename>把文件添加到repo<br>git commit -m “XXXXXXX说明”<br>git status 查看repo状态 （有3种状态）<br>git diff 查看修改<br>git diff HEAD —<filename>查看filename在工作区和repo的区别</filename></filename></p><h3 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h3><pre><code>0.    git checkout —&lt;filename&gt;丢弃工作区修改0.    git reset HEAD &lt;filename&gt; 丢弃暂存区修改0.    撤销本地提交：版本退回</code></pre><p>git log 查看历史提交版本<br>git reset —hard HEAD^ 退回上个版本<br>git reset —hard XXXXid 前进到新版本<br>git reflog 记录命令历史</p><h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><p>工作区文件删除后删除版本库文件<br>git rm <filename><br>git commit -m “delete filename”</filename></p><p>工作区文件删除后通过版本库文件进行删除<br>git checkout — <filename></filename></p><h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><p>git remote  -v查看远程repo版本<br>git push -u origin master 把本地仓库push到远程仓库上<br>git clone <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:XXXXXXX/XXXXXXXXXX.git 从远程仓库克隆项目到本地仓库</p><h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><p>git checkout -b dev 创建dev分支并切换过去<br>git branch dev  创建dev分支<br>git checkout dev    切换dev分支<br>git branch 查看当前分支<br>git merge dev 合并分支<br>git branch -d dev删除分支<br>git log –graph 查看分支合并图</p>]]></content>
+    <content type="html"><![CDATA[<p>git(改变指针来管理版本)</p><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>Working Tree 工作区：本地文件夹<br>Repository 版本库 ：工作区中的隐藏目录.git   .git中包含了暂存区（stage或index），分支（master），以及指针head<br>add 把文件添加进暂存区，commit把repo里的文件提交到当前分区</p><h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git init 新建本地版本库</span><br><span class="line">git add &lt;filename&gt;把文件添加到repo</span><br><span class="line">git commit -m “XXXXXXX说明”</span><br><span class="line">git status 查看repo状态 （有3种状态）</span><br><span class="line">git diff 查看修改</span><br><span class="line">git diff HEAD —&lt;filename&gt;查看filename在工作区和repo的区别</span><br></pre></td></tr></table></figure><h3 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git checkout —&lt;filename&gt;丢弃工作区修改</span><br><span class="line">git reset HEAD &lt;filename&gt; 丢弃暂存区修改</span><br><span class="line">撤销本地提交：版本退回</span><br><span class="line"></span><br><span class="line">git log 查看历史提交版本</span><br><span class="line">git reset —hard HEAD^ 退回上个版本</span><br><span class="line">git reset —hard XXXXid 前进到新版本</span><br><span class="line">git reflog 记录命令历史</span><br></pre></td></tr></table></figure><h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">工作区文件删除后删除版本库文件</span><br><span class="line">git rm &lt;filename&gt;</span><br><span class="line">git commit -m “delete filename”</span><br><span class="line"></span><br><span class="line">工作区文件删除后通过版本库文件进行删除 </span><br><span class="line">git checkout — &lt;filename&gt;</span><br></pre></td></tr></table></figure><h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote  -v查看远程repo版本</span><br><span class="line">git push -u origin master 把本地仓库push到远程仓库上</span><br><span class="line">git clone git@github.com:XXXXXXX/XXXXXXXXXX.git 从远程仓库克隆项目到本地仓库</span><br></pre></td></tr></table></figure><h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev 创建dev分支并切换过去</span><br><span class="line">git branch dev  创建dev分支 </span><br><span class="line">git checkout dev    切换dev分支</span><br><span class="line">git branch 查看当前分支</span><br><span class="line">git merge dev 合并分支</span><br><span class="line">git branch -d dev删除分支</span><br><span class="line">git log --graph 查看分支合并图</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -276,9 +276,9 @@
       <category term="FaaS踩坑系列" scheme="https://0rainge.github.io/categories/FaaS%E8%B8%A9%E5%9D%91%E7%B3%BB%E5%88%97/"/>
     
     
-      <category term="FaaS" scheme="https://0rainge.github.io/tags/FaaS/"/>
-    
       <category term="fission" scheme="https://0rainge.github.io/tags/fission/"/>
+    
+      <category term="FaaS" scheme="https://0rainge.github.io/tags/FaaS/"/>
     
       <category term="openwhisk" scheme="https://0rainge.github.io/tags/openwhisk/"/>
     
@@ -306,6 +306,8 @@
       <category term="FaaS踩坑系列" scheme="https://0rainge.github.io/categories/FaaS%E8%B8%A9%E5%9D%91%E7%B3%BB%E5%88%97/"/>
     
     
+      <category term="fission" scheme="https://0rainge.github.io/tags/fission/"/>
+    
       <category term="FaaS" scheme="https://0rainge.github.io/tags/FaaS/"/>
     
       <category term="minikube" scheme="https://0rainge.github.io/tags/minikube/"/>
@@ -313,8 +315,6 @@
       <category term="Kubernetes" scheme="https://0rainge.github.io/tags/Kubernetes/"/>
     
       <category term="helm" scheme="https://0rainge.github.io/tags/helm/"/>
-    
-      <category term="fission" scheme="https://0rainge.github.io/tags/fission/"/>
     
   </entry>
   

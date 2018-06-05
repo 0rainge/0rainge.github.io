@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>论文阅读笔记之Untrimmed_Video_Classification1 | Hello 橙子</title>
+  <title>论文阅读笔记之CNN_C3D_averagePooling_LSTM_MoE | Hello 橙子</title>
   <meta name="author" content="John Doe">
   
   <meta name="description" content="我就是故意拼错的">
@@ -14,7 +14,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="论文阅读笔记之Untrimmed_Video_Classification1"/>
+  <meta property="og:title" content="论文阅读笔记之CNN_C3D_averagePooling_LSTM_MoE"/>
   <meta property="og:site_name" content="Hello 橙子"/>
 
   
@@ -99,7 +99,7 @@
 
 	
 		<div class="page-header">
-			<h1> 论文阅读笔记之Untrimmed_Video_Classification1</h1>
+			<h1> 论文阅读笔记之CNN_C3D_averagePooling_LSTM_MoE</h1>
 		</div>
 	
 
@@ -117,9 +117,7 @@
 	  		
 
 	  <h4 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h4><p>Feng Mao </p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>提取CNN和C3D特征作为帧特征，使用average pooling 和 LSTM 将帧特征聚集为视频特征，使用MoE进行分类<br>CNN_C3D_averagePooling_LSTM_MoEcd ~/blog/blog/</p>
-<p>hexo clean<br>hexo  g<br>hexo s<br>hexo </p>
-<p>hexo d -g</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>提取CNN和C3D特征作为帧特征，使用average pooling 和 LSTM 将帧特征聚集为视频特征，使用MoE进行分类<br>CNN_C3D_averagePooling_LSTM_MoEcd </p>
 <h4 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h4><p>CNN：使用数据集ImageNet 21k 训练模型inception-v1 。在分类层POOL5/7X7YS1，选择分类层之前的那一个hidden层作为帧级特征第一部分。<br>C3D：使用PCA降维</p>
 <h4 id="特征聚合"><a href="#特征聚合" class="headerlink" title="特征聚合"></a>特征聚合</h4><p>无监督 average pooling<br>有监督 aggregation LSTM</p>
 <h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p> MoE(Mixture of experts) ，结合不同特征和不同聚合模型：</p>
@@ -139,13 +137,13 @@
 
     
     
-    <a href="/2018/06/01/SqueezeNet的ARM和树莓派案例/" type="button" class="btn btn-default"><i
+    <a href="/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/" type="button" class="btn btn-default ">Next<i
+    <a href="/2018/05/10/activity2017-challenge/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -198,7 +196,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/ActivityNet2017论文笔记/">ActivityNet2017论文笔记<span>1</span></a></li> <li><a href="/tags/CNN/">CNN<span>2</span></a></li> <li><a href="/tags/C3D/">C3D<span>1</span></a></li> <li><a href="/tags/averagePooling/">averagePooling<span>1</span></a></li>
+  <li><a href="/tags/CNN/">CNN<span>2</span></a></li> <li><a href="/tags/ActivityNet2017论文笔记/">ActivityNet2017论文笔记<span>1</span></a></li> <li><a href="/tags/C3D/">C3D<span>1</span></a></li> <li><a href="/tags/averagePooling/">averagePooling<span>1</span></a></li>
     </ul>
 	</div>
 		

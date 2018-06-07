@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>复现activitynet2016未剪辑视频分类冠军算法模型 | Hello 橙子</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="我就是故意拼错的">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="复现activitynet2016未剪辑视频分类冠军算法模型"/>
+  <meta property="og:site_name" content="Hello 橙子"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Hello 橙子</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 复现activitynet2016未剪辑视频分类冠军算法模型</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>复现activitynet2016未剪辑视频分类冠军算法模型：</p>
+<p>代码链接：<a href="https://github.com/yjxiong/anet2016-cuhk" target="_blank" rel="noopener">https://github.com/yjxiong/anet2016-cuhk</a></p>
+<p>系统：</p>
+<p>装上unzip和cmake</p>
+<p>复现activitynet2016未剪辑视频分类冠军算法模型：<a href="https://github.com/yjxiong/anet2016-cuhk" target="_blank" rel="noopener">https://github.com/yjxiong/anet2016-cuhk</a></p>
+<p>主要通过脚本安装<a href="https://github.com/yjxiong/anet2016-cuhk/blob/master/build_all.sh" target="_blank" rel="noopener">https://github.com/yjxiong/anet2016-cuhk/blob/master/build_all.sh</a></p>
+<p>环境准备如下：</p>
+<ol>
+<li>安装anaconda</li>
+<li>安装caffe</li>
+<li>安装tensorflow</li>
+<li>安装opencv</li>
+</ol>
+<p>脚本有一些地方运行不了，整理的之后步骤如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#!/usr/bin/env bash</span><br><span class="line"># TODO: add compilation steps</span><br><span class="line"></span><br><span class="line"># update the submodules: Caffe and Dense Flow</span><br><span class="line">git submodule update --remote</span><br><span class="line"></span><br><span class="line"># install Caffe dependencies</span><br><span class="line">sudo apt-get -qq install libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler libatlas-base-dev</span><br><span class="line">不对！！！！！！！！！！sudo apt-get -qq install --no-install-recommends libboost1.55-all-dev</span><br><span class="line"> 改成sudo apt-get -qq install --no-install-recommends libboost-all-dev</span><br><span class="line">sudo apt-get -qq install libgflags-dev libgoogle-glog-dev liblmdb-dev</span><br><span class="line"></span><br><span class="line"># install Dense_Flow dependencies</span><br><span class="line">sudo apt-get -qq install libzip-dev</span><br><span class="line"></span><br><span class="line"># install common dependencies: OpenCV</span><br><span class="line"># adpated from OpenCV.sh</span><br><span class="line">version=&quot;2.4.13&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;Building OpenCV&quot; $version</span><br><span class="line">mkdir 3rd-party/</span><br><span class="line">cd 3rd-party/</span><br><span class="line"></span><br><span class="line">echo &quot;Installing Dependenices&quot;</span><br><span class="line">不对！！！！！！！！！sudo apt-get -qq install libopencv-dev build-essential checkinstall cmake pkg-config yasm libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils</span><br><span class="line"></span><br><span class="line">改成sudo apt-get -qq install libopencv-dev build-essential checkinstall cmake pkg-config yasm libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine2-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils</span><br><span class="line"></span><br><span class="line">echo &quot;Downloading OpenCV&quot; $version</span><br><span class="line"></span><br><span class="line">echo &quot;Installing OpenCV&quot; $version</span><br><span class="line">unzip OpenCV-$version.zip</span><br><span class="line">cd opencv-$version</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">cmake -D CMAKE_BUILD_TYPE=RELEASE -D WITH_TBB=ON  -D WITH_V4L=ON  -D WITH_QT=ON -D WITH_OPENGL=ON  ..</span><br><span class="line"></span><br><span class="line">!!!!!!!!!!</span><br><span class="line">在这里Makefile.config加入：</span><br><span class="line">LINKFLAGS := -Wl,-rpath,/root/anaconda3/lib</span><br><span class="line">!!!!!!!!!!</span><br><span class="line">？？？？？？？？？？cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_V4L=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=ON -D BUILD_TIFF=ON -D WITH_OPENGL=ON..</span><br><span class="line"></span><br><span class="line">cmake -D CMAKE_BUILD_TYPE=RELEASE -D WITH_TBB=ON  -D WITH_V4L=ON  -D WITH_QT=ON -D WITH_OPENGL=ON  -D BUILD_TIFF=ON  ..</span><br><span class="line"></span><br><span class="line">cp lib/cv2.so ../../../</span><br><span class="line">echo &quot;OpenCV&quot; $version &quot;built&quot;</span><br><span class="line"></span><br><span class="line"># build dense_flow</span><br><span class="line">cd ../../../</span><br><span class="line"></span><br><span class="line">echo &quot;Building Dense Flow&quot;</span><br><span class="line">cd lib/dense_flow</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">OpenCV_DIR=../../../3rd-party/opencv-$version/build/ cmake .. -DCUDA_USE_STATIC_CUDA_RUNTIME=OFF</span><br><span class="line">make -j</span><br><span class="line">!!!!!!!!需要下载</span><br><span class="line">echo &quot;Dense Flow built&quot;</span><br><span class="line"></span><br><span class="line">https://github.com/jaejunlee0538/openfabmap/issues/3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># build caffe</span><br><span class="line">echo &quot;Building Caffe&quot;</span><br><span class="line">cd ../../caffe-action</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">OpenCV_DIR=../../../3rd-party/opencv-$version/build/ cmake .. -DCUDA_USE_STATIC_CUDA_RUNTIME=OFF </span><br><span class="line"></span><br><span class="line">!!!!!!!!!!!!!!!改成</span><br><span class="line">OpenCV_DIR=../../../3rd-party/opencv-$version/build/ cmake .. -DCUDA_USE_STATIC_CUDA_RUNTIME=OFF -D BUILD_TIFF=ON</span><br><span class="line">然后如果你装了anaconda包的话，删除anaconda/lib/下面的 libm https://blog.csdn.net/ccemmawatson/article/details/42004105</span><br><span class="line">sudo rm -rf libm*</span><br><span class="line"></span><br><span class="line">make -j32</span><br><span class="line">echo &quot;Caffe Built&quot;</span><br><span class="line">cd ../../../</span><br><span class="line"></span><br><span class="line"># install python packages</span><br><span class="line">pip install -r py_requirements.txt</span><br><span class="line"></span><br><span class="line"># setup for web demo</span><br><span class="line">mkdir tmp</span><br><span class="line"></span><br><span class="line"># copy website files to the folder</span><br><span class="line">wget -O 3rd-party/bootstrap-fileinput.zip https://github.com/kartik-v/bootstrap-fileinput/zipball/master</span><br><span class="line">cd 3rd-party</span><br><span class="line">unzip bootstrap-fileinput.zip</span><br><span class="line">mv kartik-v-bootstrap-* Bootstrap-fileinput</span><br><span class="line"></span><br><span class="line">!!!!!!!!!!!cannot move &apos;kartik-v-bootstrap-fileinput-61c9523&apos; to &apos;Bootstrap-fileinput/kartik-v-bootstrap-fileinput-61c9523&apos;: Directory not empty</span><br><span class="line"></span><br><span class="line">cp -r Bootstrap-fileinput/js ../static/js</span><br><span class="line">cp Bootstrap-fileinput/css/* ../static/css/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export ANET_HOME=/root/anet2016-cuhk</span><br></pre></td></tr></table></figure>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2018/06/01/SqueezeNet介绍/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-05-20 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/activitynet/">activitynet<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/activitynet/">activitynet<span>1</span></a></li> <li><a href="/tags/caffee/">caffee<span>1</span></a></li> <li><a href="/tags/opencv/">opencv<span>1</span></a></li> <li><a href="/tags/tensorflow/">tensorflow<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 John Doe
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

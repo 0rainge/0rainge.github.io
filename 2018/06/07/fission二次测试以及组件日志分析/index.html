@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>fission二次测试以及组件日志分析 | Hello 橙子</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="我就是故意拼错的">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="fission二次测试以及组件日志分析"/>
+  <meta property="og:site_name" content="Hello 橙子"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Hello 橙子</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> fission二次测试以及组件日志分析</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>对fission进行测试分析组件日志：</p>
+<h3 id="进行测试如下："><a href="#进行测试如下：" class="headerlink" title="进行测试如下："></a>进行测试如下：</h3><ol>
+<li>创建语言环境镜像、给函数创建路由route trigger、上传函数、测试函数、请求函数、查看函数日志</li>
+<li>编译多个文件组成的源码函数：对源码进行打包上传，根据压缩包创建函数、创建路由、通过fission进行解释或编译链接、查看bulid日志</li>
+<li>编译artifacts（已打包函数），创建函数、创建路由、测试函数、查看全部函数</li>
+<li>创建语言环境镜像、创建builder、查看环境</li>
+<li>自动扩容（需要未安装工具hey）</li>
+<li>创建trigger：包括http trigger，time trigger，message queue trigger</li>
+<li>传源码包：通过fission创建由多个文件组成的函数压缩包，创建package，查看package信息，通过package创建函数</li>
+<li>创建部署包：通过fission创建由一个文件组成的函数压缩包，创建package，查看package信息，通过package创建函数</li>
+<li>测试函数对k8s中secret和ConfigMaps的访问（demo中的secret路径出现问题，还没找到对的路径）    </li>
+<li>fission的workflow测试</li>
+</ol>
+<h3 id="组件分析如下："><a href="#组件分析如下：" class="headerlink" title="组件分析如下："></a>组件分析如下：</h3><h4 id="builder："><a href="#builder：" class="headerlink" title="builder："></a>builder：</h4><ul>
+<li>作用：编译链接上传的源码package</li>
+<li>日志包括：记录创建builder service、builder deployment、builder pod、build程序包（注意给build.dh加权限）、上传部署包、更新部署包、build失败报错信息</li>
+</ul>
+<h4 id="controller："><a href="#controller：" class="headerlink" title="controller："></a>controller：</h4><ul>
+<li>作用：每次http请求函数的信息</li>
+<li>日志包括：服务器状态，端口，返回http请求的head信息，每次向fission请求时http信息（包括请求错误url的proxy error）如<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1 - - [07/Jun/2018:01:50:33 +0000] &quot;GET /v2/packages/demo-src-pkg-zip-8lwt?namespace=default HTTP/1.1&quot; 404 9</span><br><span class="line">以及（应该是）每次请求的函数地址和传入参数的地址如</span><br><span class="line">github.com/fission/fission/controller.(*API).respondWithError(0xc420082ae0, 0x7f5c883e4e60, 0xc4201a4960, 0x178ea60, 0xc420510b40)</span><br><span class="line">	/Volumes/MacintoshHD/Dropbox/Dropbox/goWorkspace/src/github.com/fission/fission/controller/api.go:98 +0x29</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="executor："><a href="#executor：" class="headerlink" title="executor："></a>executor：</h4><ul>
+<li>作用：创建函数</li>
+<li>日志包括：检查是缓冲中跑起来的函数，没有找到的话创建一个，为函数分配环境，设置一个数据结构记录函数信息（如函数名，GenerateName:命名空间；SelfLink，Generation；创建时间戳，删除时间戳，存活时间（DeletionGracePeriodSeconds），标签，实例化url），从pool中得到这个函数，选择pod，通过pod ip实例化pod，从pool中找到可以实例化的pod，对函数和pod进行映射，对pod加上标签，选择pod，调用fetcher 拷贝函数到指定url上，实例化pod，用环境镜像实例化pod，为pod加上ip，创建对应语言的pool，拉取fetcher镜像等。</li>
+</ul>
+<h4 id="kubewatcher："><a href="#kubewatcher：" class="headerlink" title="kubewatcher："></a>kubewatcher：</h4><p>没有查到日志</p>
+<h4 id="router："><a href="#router：" class="headerlink" title="router："></a>router：</h4><ul>
+<li>作用：对http请求进行转发</li>
+<li>日志包括：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">2018/06/07 05:47:12 Calling getServiceForFunction for function: hello</span><br><span class="line">2018/06/07 05:47:30 Tapped 1 services in batch</span><br><span class="line">2018/06/07 05:47:30 Tapped 1 services in batch</span><br><span class="line">2018/06/07 05:48:00 Tapped 1 services in batch</span><br><span class="line">2018/06/07 05:48:00 Tapped 1 services in batch</span><br><span class="line">2018/06/07 05:48:15 Tapped 1 services in batch</span><br><span class="line">2018/06/07 05:48:15 Tapped 1 services in batch</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="storagesvc："><a href="#storagesvc：" class="headerlink" title="storagesvc："></a>storagesvc：</h4><ul>
+<li>作用：储存服务</li>
+<li>日志包括：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">time=&quot;2018-06-06T07:24:53Z&quot; level=info msg=&quot;Storage service started&quot;</span><br><span class="line">time=&quot;2018-06-06T07:24:53Z&quot; level=info msg=&quot;listening to archiveChannel to prune archives&quot;</span><br><span class="line">time=&quot;2018-06-06T08:24:53Z&quot; level=info msg=&quot;getting orphan archives&quot;</span><br><span class="line">time=&quot;2018-06-06T09:24:53Z&quot; level=info msg=&quot;getting orphan archives&quot;</span><br><span class="line">time=&quot;2018-06-06T09:32:41Z&quot; level=info msg=&quot;Handling upload for /packages/demo-src-pkg-zip-fbza-o3s5sk-icbzii.zip&quot;</span><br><span class="line">172.16.76.86 - - [06/Jun/2018:09:32:41 +0000] &quot;POST /v1/archive HTTP/1.1&quot; 200 72</span><br><span class="line">172.16.76.115 - - [06/Jun/2018:09:40:01 +0000] &quot;GET /v1/archive?id=%2Ffission%2Ffission-functions%2Fde313c06-247e-44a5-83a6-0d257d224212 HTTP/1.1&quot; 200 103852</span><br><span class="line">time=&quot;2018-06-06T10:24:53Z&quot; level=info msg=&quot;getting orphan archives&quot;</span><br><span class="line">time=&quot;2018-06-07T01:50:32Z&quot; level=info msg=&quot;Handling upload for /packages/demo-src-pkg-zip-d20x-rnhpna-i8fmoq.zip&quot;</span><br><span class="line">172.16.76.95 - - [07/Jun/2018:01:50:32 +0000] &quot;POST /v1/archive HTTP/1.1&quot; 200 72</span><br><span class="line">time=&quot;2018-06-07T02:24:53Z&quot; level=info msg=&quot;getting orphan archives&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="timer："><a href="#timer：" class="headerlink" title="timer："></a>timer：</h4><ul>
+<li>作用：一个基于时间的triggers，定时向请求指定函数。这里是每30s请求一次。</li>
+<li>日志包括：<br>2018/06/07 08:17:30 Making HTTP request to <a href="http://router.fission/fission-function/hello" target="_blank" rel="noopener">http://router.fission/fission-function/hello</a><br>主要是记录时间</li>
+</ul>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2018/06/01/SqueezeNet介绍/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-06-07 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/FaaS踩坑系列/">FaaS踩坑系列<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/fission/">fission<span>4</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 John Doe
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>NodeJs/jQuery/express/mongoDB/Flag清单 | Hello 橙子</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="我就是故意拼错的">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="NodeJs/jQuery/express/mongoDB/Flag清单"/>
+  <meta property="og:site_name" content="Hello 橙子"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Hello 橙子</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> NodeJs/jQuery/express/mongoDB/Flag清单</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="也可以看成一个ToDoList"><a href="#也可以看成一个ToDoList" class="headerlink" title="也可以看成一个ToDoList"></a>也可以看成一个ToDoList</h1><p>a To-Do-List  using jQuery, nodejs, Express, mongoDB</p>
+<p>实现一个flag清单，添加或删除flag</p>
+<p>前端使用模版引擎EJS，引用jQuery库，后端使用nodejs，采用express框架，数据储存在mongoDB上</p>
+<h2 id="界面展示："><a href="#界面展示：" class="headerlink" title="界面展示："></a>界面展示：</h2><p>前端：<br><img src="https://github.com/0rainge/myToDoList/blob/master/img/demo.png?raw=true" alt="image"></p>
+<p>后端：<br><img src="https://github.com/0rainge/myToDoList/blob/master/img/db.png?raw=true" alt="image"></p>
+<h2 id="0-安装："><a href="#0-安装：" class="headerlink" title="0. 安装："></a>0. 安装：</h2><ul>
+<li>express：后端框架</li>
+<li>body-parser：处理表单</li>
+<li>ejs：模版引擎</li>
+<li>mongoose：连接数据库</li>
+</ul>
+<h2 id="1-定义入口文件，实现web服务器"><a href="#1-定义入口文件，实现web服务器" class="headerlink" title="1. 定义入口文件，实现web服务器"></a>1. 定义入口文件，实现web服务器</h2><p>导入express变量（导入进来是一个函数）<br>实例化变量<br>引入模版引擎<br>使用静态文件，中间件写法，设置一个文件夹做为根目录<br>监听3000端口</p>
+<p>安装插件nodemon，默认找server.js </p>
+<h2 id="2-定义路由："><a href="#2-定义路由：" class="headerlink" title="2. 定义路由："></a>2. 定义路由：</h2><ol>
+<li><p>新建文件夹controlers，新建文件 myToDoControler</p>
+</li>
+<li><p>导出函数</p>
+</li>
+<li><p>定义路由：请求列表时需要的路由，新增项时需要的路由，删除项目时需要的路由</p>
+</li>
+</ol>
+<h2 id="3-如何引用路由？"><a href="#3-如何引用路由？" class="headerlink" title="3. 如何引用路由？"></a>3. 如何引用路由？</h2><ol>
+<li>导出路由</li>
+<li>传入参数</li>
+</ol>
+<p>controller：请求相关的控制器，请求会到controller里</p>
+<p>model：用来处理数据</p>
+<p>view：视图相关</p>
+<h2 id="4-使用模版引擎view-engine-ejs构建页面"><a href="#4-使用模版引擎view-engine-ejs构建页面" class="headerlink" title="4. 使用模版引擎view engine ejs构建页面"></a>4. 使用模版引擎view engine ejs构建页面</h2><ol>
+<li>引入jQuery：在bootCDN找jquery的动态链接</li>
+<li>渲染这个页面：在路由中render，进入路由会渲染这个ejs文件</li>
+<li>在内存中渲染这个页面：</li>
+</ol>
+<p>渲染数据：</p>
+<ol>
+<li><p>res.render(‘myTodo’,{flags: data});</p>
+</li>
+<li><p>ejs中通过&lt;% %&gt;插入js代码，forEach 循环插入数据</p>
+</li>
+</ol>
+<p>数据和服务器通信：</p>
+<ol>
+<li>点击按钮把数据发送给服务器</li>
+<li>服务器得到内容进行处理，</li>
+<li>服务器把数据给浏览器，下面的列表会多加一行</li>
+</ol>
+<h3 id="5-js功能实现："><a href="#5-js功能实现：" class="headerlink" title="5. js功能实现："></a>5. js功能实现：</h3><p>实现添加项目：</p>
+<ol>
+<li>把内容发给服务器</li>
+<li>浏览器自动刷新：如何在数组中添加一个项目</li>
+<li>res.json只是让请求不报错</li>
+<li>如何把post数据取出来：用到一个库：body-parser</li>
+</ol>
+<p>实现删除项目：</p>
+<ol>
+<li>点击之后，得到项的内容，后端就知道删除的是哪一项，设置method为delete，</li>
+<li>要注意：空格变成了横线，路由多了参数，路由错误会报错404，正则表达式更改路由：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> item = $(<span class="keyword">this</span>).text().trim().replace(<span class="regexp">/ /g</span>, <span class="string">"-"</span>);</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>filter 取出来的内容是要的，用来过滤一些想要的数据，每一项的内容和传过来的内容进行比较，返回true就是要的</li>
+</ol>
+<h3 id="6-mongoDB："><a href="#6-mongoDB：" class="headerlink" title="6. mongoDB："></a>6. mongoDB：</h3><p>存储json文件</p>
+<p>注册Mlab<br>test test666</p>
+<p>链接数据库：</p>
+<ol>
+<li>安装mongoose并导入</li>
+<li>连接数据库</li>
+<li>定义schema，定义字段名，值，值的类型item:String，相当于一个数据库表的模版，保证数据格式的正确类型，规定类型的属性，保证程序的健壮性 </li>
+<li>定义model，model和数据库中的表是对应关系 ，程序对应操作model同步操作表，新增一条记录</li>
+<li>保存数据，同时记得返回报错信息</li>
+</ol>
+<h3 id="7-通过数据库进行存取数据："><a href="#7-通过数据库进行存取数据：" class="headerlink" title="7. 通过数据库进行存取数据："></a>7. 通过数据库进行存取数据：</h3><ol>
+<li>从mongoDB中读取数据实现渲染</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Flag.find(&#123;&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(err) <span class="keyword">throw</span> err;</span><br><span class="line">            res.render(<span class="string">'myTodo'</span>,&#123;<span class="attr">flags</span>:data&#125;);</span><br><span class="line">         &#125;);</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>把项目添加到列表中</li>
+</ol>
+<p>（把之前写死的数据改成动态数据）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> flagOne = Flag(req.body).save(<span class="function"><span class="keyword">function</span> (<span class="params">err,data</span>) </span>&#123;</span><br><span class="line">             <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">             res.json(data);</span><br><span class="line">             <span class="comment">//  console.log('已保存: item saved');</span></span><br><span class="line">         &#125;)</span><br></pre></td></tr></table></figure>
+<p>保存请求体</p>
+<ol start="3">
+<li>删除数据</li>
+</ol>
+<p>找到这条记录，删除掉，用正则表达式进行转换</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Flag.find(&#123;<span class="attr">item</span>: req.params.item.replace(<span class="regexp">/-/g</span>, <span class="string">" "</span>)&#125;).remove(<span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">   res.json(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="问题记录："><a href="#问题记录：" class="headerlink" title="问题记录："></a>问题记录：</h2><p>js中$ 的用法：</p>
+<p>JQuery中一个自定义函数名，这个函数是获取指定网页元素的函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">Nid</span>)</span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(Nid);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- $()可以是$(element)，即一个特定的DOM元素</span><br><span class="line"></span><br><span class="line">$(<span class="built_in">document</span>).find(<span class="string">"div&gt;p"</span>).html());</span><br><span class="line"></span><br><span class="line">- $()可以是$(expresion)</span><br><span class="line"></span><br><span class="line">alert($(<span class="string">"div&gt;p"</span>).html());</span><br><span class="line"></span><br><span class="line">- $()可以是$(<span class="function"><span class="keyword">function</span>)，即一个函数</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">$</span>(<span class="params">function(</span>)</span>&#123;</span><br><span class="line">alert(<span class="string">"Hello world!"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">相当于</span><br><span class="line"></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">alert(<span class="string">"Hello world!"</span>); </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这是为了防止文档在完全加载（就绪）之前运行 jQuery 代码，即在 DOM 加载完成后才可以对 DOM 进行操作。<br>如果在文档没有完全加载之前就运行函数，操作可能失败。下面是两个具体的例子：</p>
+<ul>
+<li>试图隐藏一个不存在的元素</li>
+<li>获得未完全加载的图像的大小</li>
+</ul>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2019/02/22/react-简单的财务管理系统/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2019/01/29/JavaScript-贪吃蛇/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2019-01-31 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/缓慢的前端学习-练手项目记录/">缓慢的前端学习-练手项目记录<span>4</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/JavaScript/">JavaScript<span>3</span></a></li> <li><a href="/tags/NodeJs/">NodeJs<span>1</span></a></li> <li><a href="/tags/jQuery/">jQuery<span>1</span></a></li> <li><a href="/tags/express/">express<span>1</span></a></li> <li><a href="/tags/mongoDB/">mongoDB<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2019 John Doe
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

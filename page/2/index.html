@@ -119,7 +119,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/" >论文阅读笔记之CNN_MBH_StackedC3D_ovrSVM_Voting</a>
+			<a href="/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/" >论文阅读笔记之CNN_C3D_averagePooling_LSTM_MoE</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -133,22 +133,22 @@
   <div class="row">
 	
 	
-		<h4 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h4><p>Jianqin Yin1, Bin Wang2, Xiaoli Liu1, Bin Fang2, Yanchun Wu1, Yanyan Bao2 </p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>提取CNN（主要捕获外观特征） , MBH 和 stacked C3D 特征（主要捕获动态特征） ，构造one-vs-rest 线性 SVM ，对结果进行投票</p>
-<h4 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h4><ul>
-<li>MBH：运动边界直方图，通过GMM和Fisher Vector 进行编码</li>
-<li>Stacked C3D：提取时间和空间信息。由数据集Sport-1M 进行训练，通过PCA降维。通过把序列分为3部分mean-pool 获取时间信息。最后对特征堆叠获得stacked 3D</li>
-<li>CNN（ImageNetShuffle） ：从Google inception net提取，在每秒2帧的pool5层提取CNN特征，对帧进行mean-pool，然后使用L1-normalization.</li>
+		<h4 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h4><p>Feng Mao </p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>提取CNN和C3D特征作为帧特征，使用average pooling 和 LSTM 将帧特征聚集为视频特征，使用MoE进行分类<br>CNN_C3D_averagePooling_LSTM_MoEcd </p>
+<h4 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h4><p>CNN：使用数据集ImageNet 21k 训练模型inception-v1 。在分类层POOL5/7X7YS1，选择分类层之前的那一个hidden层作为帧级特征第一部分。<br>C3D：使用PCA降维</p>
+<h4 id="特征聚合"><a href="#特征聚合" class="headerlink" title="特征聚合"></a>特征聚合</h4><p>无监督 average pooling<br>有监督 aggregation LSTM</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p> MoE(Mixture of experts) ，结合不同特征和不同聚合模型：</p>
+<ul>
+<li>CNN + average pooling </li>
+<li>CNN + LSTM </li>
+<li>C3D + average pooling</li>
+<li>C3D + LSTM </li>
 </ul>
-<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>通过one-vs-rest linear SVM分类，weight voting 和 hard voting 做决策<br>如果3个结果都不同，使用weight voting：通过one-vs-rest linear SVM 学习每个动作的权重，归一所有动作得到每个动作的置信度，最高票动作是最终结果<br>如果至少2个结果相同，使用one-vs-rest linear SVM 对每类特征学习其置信度</p>
-<h5 id="置信度计算公式："><a href="#置信度计算公式：" class="headerlink" title="置信度计算公式："></a>置信度计算公式：</h5><ul>
-<li>cof =1- (1- c1) (1- c2) </li>
-<li>cof =1- (1- c1) (1- c2) (1- c3) </li>
-</ul>
+<p>需要训练的参数是CNN and C3D  的LSTM参数和 MoE parameters </p>
 
 	
 	</div>
-  <a type="button" href="/2018/05/15/CNN_MBH_StackedC3D_ovrSVM_Voting/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2018/05/15/CNN_C3D_averagePooling_LSTM_MoE/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -242,82 +242,6 @@
 	
 	</div>
   <a type="button" href="/2018/05/01/git学习篇/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2018/04/11/FaaS踩坑之openwhisk文档阅读笔记/" >FaaS踩坑之openwhisk文档阅读笔记</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-04-11  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<ul>
-<li>FaaS，serverless分布式事件驱动型计算服务，也称为无服务器计算或功能即服务 Function-as-a-Service</li>
-<li>计算单元：不是虚拟机，而是一个封装了待执行代码（事件触发）的函数</li>
-</ul>
-<ul>
-<li>yaml：”Yet Another Markup Language”（仍是一种置标语言）</li>
-</ul>
-<ul>
-<li><p>post与get <a href="http://www.w3school.com.cn/tags/html_ref_httpmethods.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/tags/html_ref_httpmethods.asp</a></p>
-</li>
-<li><p>微服务：一种架构风格，一个大型复杂软件应用由一个或多个微服务组成。系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅关注于完成一件任务。在所有情况下，每个任务代表着一个小的业务能力。</p>
-</li>
-<li>反向代理，用于外部网络访问内部网络时使用，正向代理或包过滤方式用于拒绝其他外部访问方式并提供内部网络对外部网络的访问能力。因此可以结合这些方式提供最佳的安全访问方式。</li>
-<li>nginx：web服务器</li>
-<li><p>Spray：spray is an open-source toolkit for building REST/HTTP-based integration layers on top of Scala and Akka.</p>
-</li>
-<li><p>Akka：Akka是JAVA虚拟机JVM平台上构建高并发、分布式和容错应用的工具包和运行时。Akka用Scala语言写成，同时提供了Scala和JAVA的开发接口</p>
-</li>
-<li><p>rest api ：<a href="http://blog.csdn.net/px01ih8/article/details/78674685" target="_blank" rel="noopener">http://blog.csdn.net/px01ih8/article/details/78674685</a></p>
-</li>
-<li><p>openwhisk：从CouchDB 中的 whisks 数据库装入操作</p>
-</li>
-<li><p>Scala：一门多范式的编程语言，一种类似java的编程语言，设计初衷是实现可伸缩的语言、并集成面向对象编程和函数式编程的各种特性，Scala 运行在Java虚拟机上，并兼容现有的Java程序。</p>
-</li>
-</ul>
-<ul>
-<li><p>Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据</p>
-</li>
-<li><p>ActivationId：激活利用特定的标识符来表示远程对象，对象能随着时间被激活。一个激活标识符（类 ActivationID的一个实例）包含了激活一个对象所需的几部分信息：<a href="http://www.oschina.net/uploads/doc/javase-6-doc-api-zh_CN/java/rmi/activation/ActivationID.html" target="_blank" rel="noopener">http://www.oschina.net/uploads/doc/javase-6-doc-api-zh_CN/java/rmi/activation/ActivationID.html</a></p>
-</li>
-</ul>
-<ul>
-<li><p>异步调用模型，其中一旦系统接受调用操作的 HTTP 请求后，该请求即会终止</p>
-</li>
-<li><p>Docker 用于以快速、隔离且受控的方式为我们调用的每个操作设置新的自封装环境（称为容器）。对于每个操作调用，都会衍生一个 Docker 容器，将操作码注入其中</p>
-</li>
-<li><p>Restful：网络上的所有事物都被抽象为资源，每个资源都有一个唯一的资源标识符，同一个资源具有多种表现形式(xml,json等)，对资源的各种操作不会改变资源标识符，所有的操作都是无状态的</p>
-</li>
-<li><p>ssl终止：在处理SSL加密/解密的负载均衡器上发生的进程，以便负载均衡器和后端服务器之间的流量处于HTTP中。 后端必须通过限制对负载均衡器的IP的访问来加以保护</p>
-</li>
-<li><p>Ansible是一个简单的自动化运维管理工具</p>
-</li>
-<li><p>Cloud Functions 处理流入系统的事件。</p>
-</li>
-<li><p>触发器在技术上是指某类事件的名称。每个事件属于恰好一个触发器；若用类比说明，触发器类似于基于主题的发布/预订系统中的主题。规则 T -&gt; A 表示“每当来自触发器 T 的事件到达时，通过触发器有效内容调用操作 A。”</p>
-</li>
-<li><p>订阅源是全部属于某个触发器 T 的事件的流。订阅源通过订阅源操作进行控制，订阅源操作用于处理组成订阅源的事件流的创建、删除、暂停和恢复。通常，订阅源操作通过使用管理通知的 REST API 来与生成事件的外部服务进行交互。</p>
-</li>
-</ul>
-
-	
-	</div>
-  <a type="button" href="/2018/04/11/FaaS踩坑之openwhisk文档阅读笔记/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -705,6 +629,82 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/04/11/FaaS踩坑之openwhisk文档阅读笔记/" >FaaS踩坑之openwhisk文档阅读笔记</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-04-11  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<ul>
+<li>FaaS，serverless分布式事件驱动型计算服务，也称为无服务器计算或功能即服务 Function-as-a-Service</li>
+<li>计算单元：不是虚拟机，而是一个封装了待执行代码（事件触发）的函数</li>
+</ul>
+<ul>
+<li>yaml：”Yet Another Markup Language”（仍是一种置标语言）</li>
+</ul>
+<ul>
+<li><p>post与get <a href="http://www.w3school.com.cn/tags/html_ref_httpmethods.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/tags/html_ref_httpmethods.asp</a></p>
+</li>
+<li><p>微服务：一种架构风格，一个大型复杂软件应用由一个或多个微服务组成。系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅关注于完成一件任务。在所有情况下，每个任务代表着一个小的业务能力。</p>
+</li>
+<li>反向代理，用于外部网络访问内部网络时使用，正向代理或包过滤方式用于拒绝其他外部访问方式并提供内部网络对外部网络的访问能力。因此可以结合这些方式提供最佳的安全访问方式。</li>
+<li>nginx：web服务器</li>
+<li><p>Spray：spray is an open-source toolkit for building REST/HTTP-based integration layers on top of Scala and Akka.</p>
+</li>
+<li><p>Akka：Akka是JAVA虚拟机JVM平台上构建高并发、分布式和容错应用的工具包和运行时。Akka用Scala语言写成，同时提供了Scala和JAVA的开发接口</p>
+</li>
+<li><p>rest api ：<a href="http://blog.csdn.net/px01ih8/article/details/78674685" target="_blank" rel="noopener">http://blog.csdn.net/px01ih8/article/details/78674685</a></p>
+</li>
+<li><p>openwhisk：从CouchDB 中的 whisks 数据库装入操作</p>
+</li>
+<li><p>Scala：一门多范式的编程语言，一种类似java的编程语言，设计初衷是实现可伸缩的语言、并集成面向对象编程和函数式编程的各种特性，Scala 运行在Java虚拟机上，并兼容现有的Java程序。</p>
+</li>
+</ul>
+<ul>
+<li><p>Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据</p>
+</li>
+<li><p>ActivationId：激活利用特定的标识符来表示远程对象，对象能随着时间被激活。一个激活标识符（类 ActivationID的一个实例）包含了激活一个对象所需的几部分信息：<a href="http://www.oschina.net/uploads/doc/javase-6-doc-api-zh_CN/java/rmi/activation/ActivationID.html" target="_blank" rel="noopener">http://www.oschina.net/uploads/doc/javase-6-doc-api-zh_CN/java/rmi/activation/ActivationID.html</a></p>
+</li>
+</ul>
+<ul>
+<li><p>异步调用模型，其中一旦系统接受调用操作的 HTTP 请求后，该请求即会终止</p>
+</li>
+<li><p>Docker 用于以快速、隔离且受控的方式为我们调用的每个操作设置新的自封装环境（称为容器）。对于每个操作调用，都会衍生一个 Docker 容器，将操作码注入其中</p>
+</li>
+<li><p>Restful：网络上的所有事物都被抽象为资源，每个资源都有一个唯一的资源标识符，同一个资源具有多种表现形式(xml,json等)，对资源的各种操作不会改变资源标识符，所有的操作都是无状态的</p>
+</li>
+<li><p>ssl终止：在处理SSL加密/解密的负载均衡器上发生的进程，以便负载均衡器和后端服务器之间的流量处于HTTP中。 后端必须通过限制对负载均衡器的IP的访问来加以保护</p>
+</li>
+<li><p>Ansible是一个简单的自动化运维管理工具</p>
+</li>
+<li><p>Cloud Functions 处理流入系统的事件。</p>
+</li>
+<li><p>触发器在技术上是指某类事件的名称。每个事件属于恰好一个触发器；若用类比说明，触发器类似于基于主题的发布/预订系统中的主题。规则 T -&gt; A 表示“每当来自触发器 T 的事件到达时，通过触发器有效内容调用操作 A。”</p>
+</li>
+<li><p>订阅源是全部属于某个触发器 T 的事件的流。订阅源通过订阅源操作进行控制，订阅源操作用于处理组成订阅源的事件流的创建、删除、暂停和恢复。通常，订阅源操作通过使用管理通知的 REST API 来与生成事件的外部服务进行交互。</p>
+</li>
+</ul>
+
+	
+	</div>
+  <a type="button" href="/2018/04/11/FaaS踩坑之openwhisk文档阅读笔记/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/04/10/FaaS踩坑之fission安装/" >FaaS踩坑之fission安装</a>
 		</h3>
 		</div>
@@ -877,45 +877,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/helm/">helm<span>1</span></a></li>
+			<li><a href="/tags/StackedC3D/">StackedC3D<span>1</span></a></li>
 		
-			<li><a href="/tags/ARM/">ARM<span>1</span></a></li>
+			<li><a href="/tags/opencv/">opencv<span>1</span></a></li>
 		
-			<li><a href="/tags/axios/">axios<span>1</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/ActivityNet2017论文笔记/">ActivityNet2017论文笔记<span>1</span></a></li>
+			<li><a href="/tags/activitynet/">activitynet<span>1</span></a></li>
 		
 			<li><a href="/tags/mongoDB/">mongoDB<span>1</span></a></li>
 		
-			<li><a href="/tags/express/">express<span>1</span></a></li>
+			<li><a href="/tags/SqueezeNet/">SqueezeNet<span>2</span></a></li>
 		
-			<li><a href="/tags/tensorflow-lite/">tensorflow lite<span>1</span></a></li>
+			<li><a href="/tags/MBH/">MBH<span>1</span></a></li>
 		
-			<li><a href="/tags/CNN/">CNN<span>2</span></a></li>
-		
-			<li><a href="/tags/caffee/">caffee<span>1</span></a></li>
-		
-			<li><a href="/tags/Kubernetes/">Kubernetes<span>1</span></a></li>
-		
-			<li><a href="/tags/react/">react<span>1</span></a></li>
-		
-			<li><a href="/tags/Raspberry-Pi/">Raspberry Pi<span>2</span></a></li>
+			<li><a href="/tags/jQuery/">jQuery<span>1</span></a></li>
 		
 			<li><a href="/tags/C3D/">C3D<span>1</span></a></li>
 		
+			<li><a href="/tags/JavaScript/">JavaScript<span>3</span></a></li>
+		
+			<li><a href="/tags/CNN/">CNN<span>2</span></a></li>
+		
+			<li><a href="/tags/微服务/">微服务<span>2</span></a></li>
+		
+			<li><a href="/tags/css/">css<span>1</span></a></li>
+		
+			<li><a href="/tags/神经网络/">神经网络<span>1</span></a></li>
+		
+			<li><a href="/tags/html/">html<span>1</span></a></li>
+		
+			<li><a href="/tags/react/">react<span>1</span></a></li>
+		
+			<li><a href="/tags/SVM/">SVM<span>1</span></a></li>
+		
 			<li><a href="/tags/分布式/">分布式<span>1</span></a></li>
 		
-			<li><a href="/tags/docker/">docker<span>1</span></a></li>
+			<li><a href="/tags/Raspberry-Pi/">Raspberry Pi<span>2</span></a></li>
 		
-			<li><a href="/tags/StackedC3D/">StackedC3D<span>1</span></a></li>
+			<li><a href="/tags/fission/">fission<span>4</span></a></li>
 		
-			<li><a href="/tags/NodeJs/">NodeJs<span>1</span></a></li>
-		
-			<li><a href="/tags/averagePooling/">averagePooling<span>1</span></a></li>
-		
-			<li><a href="/tags/SqueezeNet/">SqueezeNet<span>2</span></a></li>
+			<li><a href="/tags/helm/">helm<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>38</span></a></li>
